@@ -5,6 +5,6 @@ psycopg2-binary
 gunicorn>=20.0.4
 whitenoise
 dj-database-url
-widget-tweaks
+django-widget-tweaks
 
 # 📌 위 코드는 Render 배포 시 필요한 파이썬 패키지를 명시한 requirements.txt를 자동으로 생성하는 예시입니다.
