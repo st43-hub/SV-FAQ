@@ -9,3 +9,6 @@ __pycache__/
 
 # VS Code 설정
 .vscode/
+
+# .gitignore 에 추가
+.env

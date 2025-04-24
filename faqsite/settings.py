@@ -54,15 +54,16 @@ TEMPLATES = [
 
 # ✅ Supabase PostgreSQL DB 연결 설정 (기존 sqlite3에서 변경)
 DATABASES = {
-   'default': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'Strad!Tiger25',
-        'HOST': 'db.bwaycfcgkxqpqxthieqk.supabase.co',
-        'PORT': '5432',
-   }
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+    }
 }
+
 
 AUTH_PASSWORD_VALIDATORS = []
 
