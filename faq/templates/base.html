@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📘 FAQ 시스템</title>
+  <link rel="stylesheet" href="{% static 'css/faq_styles.css' %}">
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background-color: #f9f9ff;
+      color: #333;
+    }
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    h1 {
+      color: #8A2BE2;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #4b0082;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    nav a:hover {
+      background-color: #ede9fe;
+    }
+    .btn-primary {
+      background-color: #8A2BE2;
+      color: white;
+      padding: 8px 12px;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-block;
+      border: none;
+    }
+    .btn-light {
+      background-color: #ede9fe;
+      color: #4b0082;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #d8b4fe;
+    }
+    .logout-icon {
+      font-size: 1.2rem;
+      padding: 6px 10px;
+      background-color: #ede9fe;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1px solid #d8b4fe;
+      text-decoration: none;
+    }
+    .welcome-text {
+      background-color: #f3e8ff;
+      color: #6b21a8;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid #d8b4fe;
+      padding: 6px 12px;
+    }
+    #floating-alert {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #eef;
+      color: #333;
+      padding: 10px 20px;
+      border-left: 4px solid #8A2BE2;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
+      display: none;
+    }
+    hr {
+      margin: 24px 0;
+      border: none;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  {% if messages %}
+    <div id="floating-alert">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div id="floating-alert" style="display: none;"></div>
+  {% endif %}
+
+  <header>
+    <div class="header-top">
+      <h1>📘 FAQ 시스템</h1>
+      {% if request.user.is_authenticated %}
+        <div class="user-info">
+          <span class="welcome-text">👋 {{ request.user.username }}님</span>
+          <a href="/accounts/logout/" class="logout-icon" title="로그아웃">🚪</a>
+        </div>
+      {% endif %}
+    </div>
+    <nav class="nav-links">
+      <a href="/">🏠 홈</a>
+      {% if request.user.is_authenticated %}
+        <a href="/add/">➕ FAQ 추가</a>
+        <a href="/stats/">📊 통계</a>
+        <a href="/export/">📤 내보내기</a>
+        <a href="/import/">📥 불러오기</a>
+      {% else %}
+        <a href="/accounts/login/" class="btn-light">로그인</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <script src="{% static 'js/faq_toggle.js' %}"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const alertBox = document.getElementById('floating-alert');
+      if (alertBox && alertBox.textContent.trim() !== '') {
+        alertBox.style.display = 'block';
+        setTimeout(() => {
+          alertBox.style.display = 'none';
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>

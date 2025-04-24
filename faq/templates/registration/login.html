@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="auth-form">
+  <h2>🔐 로그인</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">로그인</button>
+  </form>
+</div>
+{% endblock %}

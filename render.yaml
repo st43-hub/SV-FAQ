@@ -1,0 +1,16 @@
+# ✅ Render 자동 배포 설정용 render.yaml 생성 예시
+# 이 파일은 프로젝트 루트 경로에 위치해야 함
+yaml_content = """
+services:
+  - type: web
+    name: django-faq
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn faqsite.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        value: postgres://postgres:Strad!Tiger25@db.bwaycfcgkxqpqxthieqk.supabase.co:5432/postgres
+"""
+with open("render.yaml", "w") as f:
+    f.write(yaml_content)
+# 📌 위 코드는 실제 배포 시 프로젝트 루트에 `render.yaml` 파일을 작성해두는 방식으로 사용

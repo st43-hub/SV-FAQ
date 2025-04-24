@@ -1,0 +1,215 @@
+/* 🎨 FAQ 카드, 버튼, 애니메이션 전용 CSS */
+
+.faq-card-js {
+  background: #fff;
+  border: 1px solid #d8b4fe;
+  border-radius: 12px;
+  margin: 12px 0;
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.1);
+  transition: background-color 0.3s ease;
+  overflow: visible;
+  padding: 16px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+
+.faq-card-js.open {
+  background-color: #f5f3ff;
+}
+
+.faq-summary-js {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #4b0082;
+  cursor: pointer;
+  border-bottom: 1px dashed #ccc;
+  background: transparent;
+  border: none;
+  text-align: left;
+}
+
+.faq-summary-js.open .faq-toggle-icon {
+  transform: rotate(90deg);
+}
+
+.faq-toggle-icon {
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: #4b0082;
+}
+
+.faq-summary-js:hover .faq-toggle-icon {
+  color: #9333ea;
+}
+
+.faq-title {
+  flex: 1;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.faq-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  flex-shrink: 0;
+}
+
+.faq-actions form {
+  display: inline-block;
+  margin: 0;
+}
+
+.faq-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 4px;
+  margin: 0;
+  color: #4b0082;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+
+.faq-icon-button:hover {
+  color: #9333ea;
+  transform: scale(1.15);
+}
+
+.faq-answer-js {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease-in-out, padding 0.25s ease-in-out;
+  padding: 0 1rem;
+  font-size: 1rem;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.faq-answer-js[data-open="true"] {
+  padding: 1rem 1rem 1rem 2.25rem;
+}
+
+.faq-answer-js img {
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.faq-answer-js table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  background: #f9f5ff;
+  border: 1px solid #ddd;
+}
+
+.faq-answer-js th,
+.faq-answer-js td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.faq-answer-js th {
+  background-color: #ede9fe;
+  color: #4b0082;
+}
+
+input[type="text"],
+input[type="url"],
+textarea,
+select {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d8b4fe;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-light {
+  background-color: #f3e8ff;
+  color: #4b0082;
+  padding: 8px 12px;
+  border: 1px solid #d8b4fe;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.btn-light:hover {
+  background-color: #e9d5ff;
+}
+
+.btn-active {
+  background-color: #8A2BE2;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #8A2BE2;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.faq-meta {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 8px;
+}
+
+.faq-empty {
+  text-align: center;
+  color: #999;
+  font-size: 1rem;
+  margin: 40px 0;
+}
+
+/* 📱 반응형 모바일 대응 */
+@media (max-width: 768px) {
+  .faq-card-js {
+    padding: 12px;
+  }
+
+  .faq-summary-js {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .faq-actions {
+    padding-right: 0;
+    margin-top: 6px;
+  }
+
+  form,
+  .faq-filter-form {
+    flex-direction: column;
+  }
+
+  form > div,
+  .faq-filter-form > div {
+    width: 100%;
+  }
+}

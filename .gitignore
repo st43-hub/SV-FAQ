@@ -1,0 +1,11 @@
+# Python 가상환경 및 캐시
+venv/
+__pycache__/
+*.pyc
+
+# Django 정적 및 미디어 파일
+/staticfiles/
+/media/
+
+# VS Code 설정
+.vscode/

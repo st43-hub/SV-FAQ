@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- ✅ 구역(Area) 필터 버튼 -->
+<div style="margin-bottom: 20px; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+  <a href="/?{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}area=" class="btn-light">전체</a>
+  {% for code in area_codes %}
+    <a href="/?{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}area={{ code }}" class="btn-light {% if request.GET.area == code %}btn-active{% endif %}">{{ code }}</a>
+  {% endfor %}
+</div>
+
+<!-- 🔍 필터 + 정렬 + 검색 영역 -->
+<form method="get" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; align-items: center;">
+  <div style="flex: 2; min-width: 200px;">
+    <input type="text" name="search" placeholder="질문 또는 답변 검색..." value="{{ request.GET.search }}" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #d8b4fe;" />
+  </div>
+  <div style="flex: 1; min-width: 140px;">
+    <select name="category" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #d8b4fe;">
+      <option value="">전체</option>
+      <option value="분류" {% if request.GET.category == "분류" %}selected{% endif %}>분류</option>
+      <option value="가려짐" {% if request.GET.category == "가려짐" %}selected{% endif %}>가려짐</option>
+      <option value="스플라인" {% if request.GET.category == "스플라인" %}selected{% endif %}>스플라인</option>
+      <option value="기타" {% if request.GET.category == "기타" %}selected{% endif %}>기타</option>
+    </select>
+  </div>
+  <div style="flex: 1; min-width: 140px;">
+    <select name="sort" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #d8b4fe;">
+      <option value="-id" {% if current_sort == "-id" %}selected{% endif %}>최신순</option>
+      <option value="id" {% if current_sort == "id" %}selected{% endif %}>오래된순</option>
+      <option value="category" {% if current_sort == "category" %}selected{% endif %}>카테고리순</option>
+      <option value="area" {% if current_sort == "area" %}selected{% endif %}>구역순</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit" class="btn-light" style="height: 100%;">검색</button>
+  </div>
+</form>
+
+<!-- 📋 FAQ 출력 영역 -->
+{% for category, faq_list in grouped_faqs.items %}
+  <div style="margin-bottom: 48px;">
+    <h3 style="margin-top: 24px; color: #4b0082; text-align: left;">📁 {{ category }}</h3>
+    {% for faq in faq_list %}
+      {% include "faq/faq_card.html" %}
+    {% endfor %}
+  </div>
+{% empty %}
+  <p class="faq-empty">❌ 해당 조건에 맞는 FAQ가 없습니다.</p>
+{% endfor %}
+
+{% endblock %}

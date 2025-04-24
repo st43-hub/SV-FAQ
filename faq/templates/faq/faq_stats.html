@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ✅ 통계 페이지 레이아웃 시작 -->
+<div style="max-width: 880px; margin: 0 auto; padding: 20px;">
+  <h2 style="color: #4b0082; margin-bottom: 16px;">📊 FAQ 통계 대시보드</h2>
+
+  <!-- ✅ Chart.js용 데이터 전달 div (JS에서 읽어옴) -->
+  <div id="faqStatsData"
+       data-category='{{ category_counts|safe }}'
+       data-area='{{ area_counts|safe }}'></div>
+
+  <!-- ✅ 그래프 유형 전환 버튼 -->
+  <div style="margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px;">
+    <a href="#" class="btn-light" onclick="switchChart('bar'); return false;">📊 막대 그래프</a>
+    <a href="#" class="btn-light" onclick="switchChart('doughnut'); return false;">🍩 도넛 그래프</a>
+  </div>
+
+  <!-- ✅ 카테고리별 통계 그래프 -->
+  <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 24px; margin-bottom: 32px; overflow-x: auto;">
+    <h3 style="color: #4b0082; margin-bottom: 16px;">📁 카테고리별 FAQ</h3>
+    <canvas id="categoryChart" height="300"></canvas>
+  </div>
+
+  <!-- ✅ 구역별 통계 그래프 -->
+  <div style="background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 24px; overflow-x: auto;">
+    <h3 style="color: #4b0082; margin-bottom: 16px;">🧭 구역별 FAQ</h3>
+    <canvas id="areaChart" height="300"></canvas>
+  </div>
+</div>
+
+<!-- ✅ Chart.js 및 라벨 플러그인 로드 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+<script>
+  const dataElement = document.getElementById('faqStatsData');
+  const categoryData = JSON.parse(dataElement.dataset.category);
+  const areaData = JSON.parse(dataElement.dataset.area);
+
+  const categoryLabels = Object.keys(categoryData);
+  const categoryValues = Object.values(categoryData);
+  const areaLabels = Object.keys(areaData);
+  const areaValues = Object.values(areaData);
+
+  const categoryColorMap = {
+    '분류': '#8A2BE2',
+    '가려짐': '#FF6384',
+    '스플라인': '#36A2EB',
+    '기타': '#FFCE56'
+  };
+  const areaColorMap = {
+    'LD': '#4BC0C0',
+    'RBD': '#9966FF',
+    'Lane': '#FF9F40',
+    'Tool': '#00C49F'
+  };
+
+  const categoryColors = categoryLabels.map(label => categoryColorMap[label] || '#999999');
+  const areaColors = areaLabels.map(label => areaColorMap[label] || '#CCCCCC');
+
+  function createChart(ctx, type, labels, data, backgroundColors) {
+    return new Chart(ctx, {
+      type: type,
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '건수',
+          data: data,
+          backgroundColor: backgroundColors,
+          borderColor: '#fff',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom' },
+          tooltip: { enabled: true },
+          datalabels: {
+            color: '#333',
+            anchor: 'end',
+            align: 'top',
+            font: { weight: 'bold' },
+            formatter: (value) => value
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  }
+
+  let currentType = 'bar';
+  const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+  const areaCtx = document.getElementById('areaChart').getContext('2d');
+
+  let categoryChart = createChart(categoryCtx, currentType, categoryLabels, categoryValues, categoryColors);
+  let areaChart = createChart(areaCtx, currentType, areaLabels, areaValues, areaColors);
+
+  function switchChart(newType) {
+    if (newType !== currentType) {
+      categoryChart.destroy();
+      areaChart.destroy();
+      categoryChart = createChart(categoryCtx, newType, categoryLabels, categoryValues, categoryColors);
+      areaChart = createChart(areaCtx, newType, areaLabels, areaValues, areaColors);
+      currentType = newType;
+    }
+  }
+</script>
+{% endblock %}

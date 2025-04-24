@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<h2 style="margin-bottom: 16px; color: #4b0082;">➕ FAQ 추가</h2>
+<form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 16px; max-width: 600px; margin: 0 auto; padding: 16px;">
+  {% csrf_token %}
+
+  <!-- 질문 입력 -->
+  <div>
+    <label for="id_question">질문</label><br>
+    {{ form.question|attr:"style:width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe" }}
+  </div>
+
+  <!-- 답변 입력 -->
+  <div>
+    <label for="id_answer">답변</label><br>
+    {{ form.answer|attr:"style:width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe"|attr:"rows:4" }}
+  </div>
+
+  <!-- 카테고리 선택 -->
+  <div>
+    <label for="id_category">카테고리</label><br>
+    {{ form.category|add_class:"form-control"|attr:"style:width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe" }}
+  </div>
+
+  <!-- 구역 선택 -->
+  <div>
+    <label for="id_area">구역</label><br>
+    {{ form.area|add_class:"form-control"|attr:"style:width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe" }}
+  </div>
+
+  <!-- 참고 링크 입력 -->
+  <div>
+    <label for="id_reference">참고 링크</label><br>
+    {{ form.reference|attr:"style:width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe" }}
+  </div>
+
+  <!-- 이미지 업로드 -->
+  <div>
+    <label for="id_image">이미지 업로드</label><br>
+    {{ form.image|attr:"style:margin-top:4px" }}
+  </div>
+
+  <!-- 저장 버튼 -->
+  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+    <button type="submit" class="btn-primary">저장</button>
+    <a href="/" class="btn-light">뒤로</a>
+  </div>
+</form>
+{% endblock %}

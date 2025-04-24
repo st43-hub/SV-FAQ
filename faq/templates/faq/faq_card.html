@@ -1,0 +1,24 @@
+{# 📦 FAQ 카드 하나를 단단하는 템플릿 컨포넌트 #}
+<div class="faq-card-js">
+  <div class="faq-summary-js toggle-btn" type="button">
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="faq-toggle-icon">▶</span>
+        <span class="faq-title"><strong>Q.</strong> {{ faq.question }}</span>
+      </div>
+      {% if user.is_authenticated %}
+        <div class="faq-actions">
+          <a href="{% url 'edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정" class="faq-icon-button">✏️</a>
+          <form method="post" action="{% url 'delete_faq' faq.id %}?{{ request.GET.urlencode }}" style="display: inline; margin: 0; padding: 0;">
+            {% csrf_token %}
+            <button type="submit" title="삭제" class="faq-icon-button">🗑️</button>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="faq-answer-js" data-open="false">
+    <p>{{ faq.answer|safe }}</p>
+    <p class="faq-meta">📍 구역: {{ faq.area }}</p>
+  </div>
+</div>
