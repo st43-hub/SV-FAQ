@@ -2,6 +2,9 @@
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv  # ✅ 추가
+
+load_dotenv()  # ✅ 이 줄도 추가
 
 SECRET_KEY = 'i&g51x)$h2jtq10uf1w(6jvq1^0q#t^z3n6c=t(x$86oq5h$ah'
 
