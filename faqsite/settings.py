@@ -8,7 +8,7 @@ SECRET_KEY = 'i&g51x)$h2jtq10uf1w(6jvq1^0q#t^z3n6c=t(x$86oq5h$ah'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'sv-faq-service.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
