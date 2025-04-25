@@ -1,58 +1,62 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
-
 {% block content %}
-<h2 class="text-xl font-bold text-purple-800 mb-4">➕ FAQ 추가</h2>
-
-<!-- ✅ Tailwind 기반 UI + 이미지 업로드 포함 개선 버전 -->
-<form method="post" enctype="multipart/form-data" class="faq-form space-y-6">
+<h2 style="margin-bottom: 16px; color: #4b0082;">➕ FAQ 추가</h2>
+<form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 16px; max-width: 600px; margin: 0 auto; padding: 16px;">
   {% csrf_token %}
 
   <!-- ❓ 질문 입력 -->
   <div>
-    <label for="id_question" class="block text-lg font-semibold">❓ 질문</label>
-    {{ form.question|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
+    <label for="id_question">질문</label><br>
+    <div style="width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe">
+      {{ form.question }}
+    </div>
   </div>
 
   <!-- 💬 답변 입력 -->
   <div>
-    <label for="id_answer" class="block text-lg font-semibold">💬 답변</label>
-    {{ form.answer|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
+    <label for="id_answer">답변</label><br>
+    <div style="width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe">
+      {{ form.answer }}
+    </div>
   </div>
 
-  <!-- 🖼️ 이미지 업로드 -->
+  <!-- 📂 카테고리 선택 -->
   <div>
-    <label for="id_image" class="block text-lg font-semibold">🖼️ 이미지 업로드</label>
-    {{ form.image|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
-  </div>
-
-  <!-- 🔗 참고 링크 -->
-  <div>
-    <label for="id_reference" class="block text-lg font-semibold">🔗 참고 링크</label>
-    {{ form.reference|as_widget(attrs={'class': 'w-full p-2 border rounded-lg', 'placeholder': 'https://example.com'}) }}
-  </div>
-
-  <!-- 📂 카테고리 선택 및 추가 입력 -->
-  <div>
-    <label for="id_category" class="block text-lg font-semibold">📂 카테고리</label>
-    <select name="category" id="id_category" class="w-full p-2 border rounded-lg">
-      {% for option in category_choices %}
-        <option value="{{ option }}" {% if form.category.value == option %}selected{% endif %}>{{ option }}</option>
-      {% endfor %}
-    </select>
-    <input type="text" name="new_category" placeholder="새 카테고리 입력" class="mt-2 w-full p-2 border rounded-lg">
+    <label for="id_category">카테고리</label><br>
+    <div style="width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe">
+      {{ form.category }}
+    </div>
   </div>
 
   <!-- 🗺️ 구역 선택 -->
   <div>
-    <label for="id_area" class="block text-lg font-semibold">🗺️ 구역</label>
-    {{ form.area|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
+    <label for="id_area">구역</label><br>
+    <div style="width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe">
+      {{ form.area }}
+    </div>
   </div>
 
-  <!-- 저장 버튼 & 뒤로가기 -->
-  <div class="flex justify-end items-center gap-3">
-    <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-xl">➕ 등록</button>
-    <a href="/" class="bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded-xl">🔙 뒤로</a>
+  <!-- 🔗 참고 링크 입력 -->
+  <div>
+    <label for="id_reference">참고 링크</label><br>
+    <div style="width:100%;padding:10px;border-radius:6px;border:1px solid #d8b4fe">
+      {{ form.reference }}
+    </div>
+  </div>
+
+  <!-- 🖼️ 이미지 업로드 -->
+  <div>
+    <label for="id_image">이미지 업로드</label><br>
+    <div style="margin-top:4px">
+      {{ form.image }}
+    </div>
+  </div>
+
+  <!-- 💾 저장 버튼 -->
+  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+    <button type="submit" class="btn-primary">저장</button>
+    <a href="/" class="btn-light">뒤로</a>
   </div>
 </form>
 {% endblock %}

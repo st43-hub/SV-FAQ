@@ -4,54 +4,53 @@
 {% block content %}
 <h2 class="text-xl font-bold text-purple-800 mb-4">✏️ FAQ 수정</h2>
 
-<!-- ✅ Tailwind 기반 UI + 이미지 업로드 포함 개선 버전 -->
+<!-- 기존 Add/Edit FAQ Form 개선 버전 (as_widget 없이 직접 출력) -->
 <form method="post" enctype="multipart/form-data" class="faq-form space-y-6">
   {% csrf_token %}
 
   <!-- ❓ 질문 입력 -->
   <div>
     <label for="id_question" class="block text-lg font-semibold">❓ 질문</label>
-    {{ form.question|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
+    <div class="w-full p-2 border rounded-lg">
+      {{ form.question }}
+    </div>
   </div>
 
   <!-- 💬 답변 입력 -->
   <div>
     <label for="id_answer" class="block text-lg font-semibold">💬 답변</label>
-    {{ form.answer|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
+    <div class="w-full p-2 border rounded-lg">
+      {{ form.answer }}
+    </div>
   </div>
 
-  <!-- 🖼️ 이미지 업로드 (미리보기 포함) -->
+  <!-- 🖼️ 이미지 업로드 -->
   <div>
     <label for="id_image" class="block text-lg font-semibold">🖼️ 이미지 업로드</label>
-    {{ form.image|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
-    {% if form.instance.image %}
-      <div class="mt-2">
-        <img src="{{ form.instance.image.url }}" alt="FAQ 이미지" class="rounded-lg max-w-xs border">
-      </div>
-    {% endif %}
+    <div class="w-full p-2 border rounded-lg">
+      {{ form.image }}
+    </div>
   </div>
 
   <!-- 🔗 참고 링크 -->
   <div>
     <label for="id_reference" class="block text-lg font-semibold">🔗 참고 링크</label>
-    {{ form.reference|as_widget(attrs={'class': 'w-full p-2 border rounded-lg', 'placeholder': 'https://example.com'}) }}
+    <div class="w-full p-2 border rounded-lg">
+      {{ form.reference }}
+    </div>
   </div>
 
   <!-- 📂 카테고리 선택 및 추가 입력 -->
   <div>
     <label for="id_category" class="block text-lg font-semibold">📂 카테고리</label>
-    <select name="category" id="id_category" class="w-full p-2 border rounded-lg">
-      {% for option in category_choices %}
-        <option value="{{ option }}" {% if form.category.value == option %}selected{% endif %}>{{ option }}</option>
-      {% endfor %}
-    </select>
+    {{ form.category }}
     <input type="text" name="new_category" placeholder="새 카테고리 입력" class="mt-2 w-full p-2 border rounded-lg">
   </div>
 
   <!-- 🗺️ 구역 선택 -->
   <div>
     <label for="id_area" class="block text-lg font-semibold">🗺️ 구역</label>
-    {{ form.area|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
+    {{ form.area }}
   </div>
 
   <!-- 저장 버튼 & 뒤로가기 -->
