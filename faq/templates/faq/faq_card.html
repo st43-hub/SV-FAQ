@@ -1,4 +1,4 @@
-{# 📦 FAQ 카드 하나를 단단하는 템플릿 컴포넌트 (반응형 개선 + 이미지 출력 포함) #}
+{# 📦 FAQ 카드 하나를 단단하는 템플릿 컴포넌트 (반응형 개선 + 이미지 출력 포함 + URL 네임스페이스 적용) #}
 <div class="faq-card-js" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #dcdcdc; border-radius: 12px;">
   <div class="faq-summary-js toggle-btn" type="button">
     <!-- ✅ 반응형 적용: flex-wrap 추가 -->
@@ -19,8 +19,10 @@
         <span title="즐겨찾기" style="font-size: 1.1rem; cursor: pointer;">⭐</span>
         {% if user.is_authenticated %}
         <div class="faq-actions">
-          <a href="{% url 'edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정" class="faq-icon-button">✏️</a>
-          <form method="post" action="{% url 'delete_faq' faq.id %}?{{ request.GET.urlencode }}" style="display: inline; margin: 0; padding: 0;">
+          <!-- ✅ 네임스페이스 적용: faq:edit_faq -->
+          <a href="{% url 'faq:edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정" class="faq-icon-button">✏️</a>
+          <!-- ✅ 네임스페이스 적용: faq:delete_faq -->
+          <form method="post" action="{% url 'faq:delete_faq' faq.id %}?{{ request.GET.urlencode }}" style="display: inline; margin: 0; padding: 0;">
             {% csrf_token %}
             <button type="submit" title="삭제" class="faq-icon-button">🗑️</button>
           </form>
