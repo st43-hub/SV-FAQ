@@ -4,7 +4,7 @@
 {% block content %}
 <h2 class="text-xl font-bold text-purple-800 mb-4">✏️ FAQ 수정</h2>
 
-<!-- 기존 Add/Edit FAQ Form 개선 버전 -->
+<!-- ✅ Tailwind 기반 UI + 이미지 업로드 포함 개선 버전 -->
 <form method="post" enctype="multipart/form-data" class="faq-form space-y-6">
   {% csrf_token %}
 
@@ -20,10 +20,15 @@
     {{ form.answer|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
   </div>
 
-  <!-- 🖼️ 이미지 업로드 -->
+  <!-- 🖼️ 이미지 업로드 (미리보기 포함) -->
   <div>
     <label for="id_image" class="block text-lg font-semibold">🖼️ 이미지 업로드</label>
     {{ form.image|as_widget(attrs={'class': 'w-full p-2 border rounded-lg'}) }}
+    {% if form.instance.image %}
+      <div class="mt-2">
+        <img src="{{ form.instance.image.url }}" alt="FAQ 이미지" class="rounded-lg max-w-xs border">
+      </div>
+    {% endif %}
   </div>
 
   <!-- 🔗 참고 링크 -->

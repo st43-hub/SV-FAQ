@@ -1,12 +1,23 @@
-{# 📦 FAQ 카드 하나를 단단하는 템플릿 컨포넌트 #}
-<div class="faq-card-js">
+{# 📦 FAQ 카드 하나를 단단하는 템플릿 컴포넌트 (반응형 개선 + 이미지 출력 포함) #}
+<div class="faq-card-js" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #dcdcdc; border-radius: 12px;">
   <div class="faq-summary-js toggle-btn" type="button">
-    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span class="faq-toggle-icon">▶</span>
-        <span class="faq-title"><strong>Q.</strong> {{ faq.question }}</span>
+    <!-- ✅ 반응형 적용: flex-wrap 추가 -->
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; width: 100%; gap: 0.75rem;">
+      <div style="display: flex; flex-direction: column; gap: 4px; min-width: 200px; flex: 1;">
+        <!-- ✅ 질문 상단에 카테고리 및 구역 정보 표시 -->
+        <div style="font-size: 0.85rem; color: #888; display: flex; gap: 8px; flex-wrap: wrap;">
+          <span>📂 {{ faq.category }}</span>
+          <span>📍 {{ faq.area }}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="faq-toggle-icon" style="font-size: 1.2rem;">▶</span>
+          <span class="faq-title" style="font-weight: 600; font-size: 1rem; word-break: break-word;"><strong>Q.</strong> {{ faq.question }}</span>
+        </div>
       </div>
-      {% if user.is_authenticated %}
+      <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+        <!-- ⭐ 즐겨찾기 아이콘 자리만 배치 (기능 미구현) -->
+        <span title="즐겨찾기" style="font-size: 1.1rem; cursor: pointer;">⭐</span>
+        {% if user.is_authenticated %}
         <div class="faq-actions">
           <a href="{% url 'edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정" class="faq-icon-button">✏️</a>
           <form method="post" action="{% url 'delete_faq' faq.id %}?{{ request.GET.urlencode }}" style="display: inline; margin: 0; padding: 0;">
@@ -14,11 +25,19 @@
             <button type="submit" title="삭제" class="faq-icon-button">🗑️</button>
           </form>
         </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
   </div>
-  <div class="faq-answer-js" data-open="false">
-    <p>{{ faq.answer|safe }}</p>
-    <p class="faq-meta">📍 구역: {{ faq.area }}</p>
+  <div class="faq-answer-js" data-open="false" style="margin-top: 12px;">
+    <!-- ✅ 답변 영역 가독성 향상 -->
+    <p style="font-size: 0.95rem; line-height: 1.6;">{{ faq.answer|safe }}</p>
+
+    <!-- ✅ 이미지가 있을 경우 출력 -->
+    {% if faq.image %}
+      <div style="margin-top: 12px;">
+        <img src="{{ faq.image.url }}" alt="FAQ 이미지" style="max-width: 100%; border-radius: 10px;">
+      </div>
+    {% endif %}
   </div>
 </div>
