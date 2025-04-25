@@ -1,5 +1,3 @@
-# ✅ views.py – FAQ 직접 입력된 카테고리/구역 적용 처리
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
@@ -10,7 +8,7 @@ from .forms import FAQForm
 import json
 from collections import defaultdict, Counter
 
-# 📋 FAQ 목록 조회 + 필터링 + 정렬 + 카테고리 묵기 + 이미지 필드 포함
+# 📋 FAQ 목록 조회 + 필터링 + 정렬 + 카테고리 묶기 + 이미지 필드 포함
 def faq_list(request):
     category = request.GET.get('category')
     area = request.GET.get('area')
@@ -32,7 +30,6 @@ def faq_list(request):
     for faq in faqs:
         grouped_faqs[faq.category].append(faq)
 
-    # ✅ 구역 코드 리스트 (상단 버튼용)
     area_codes = ['LD', 'RBD', 'Lane', 'Tool']
 
     is_admin = request.user.is_authenticated
@@ -62,8 +59,10 @@ def add_faq(request):
         form = FAQForm(request.POST, request.FILES)
         if form.is_valid():
             faq = form.save(commit=False)
+            # ✅ 새 카테고리 입력 시 기존 카테고리 덮어쓰기
             if form.cleaned_data.get('new_category'):
                 faq.category = form.cleaned_data['new_category']
+            # ✅ 새 구역 입력 시 기존 구역 덮어쓰기
             if form.cleaned_data.get('new_area'):
                 faq.area = form.cleaned_data['new_area']
             faq.save()
@@ -89,8 +88,10 @@ def edit_faq(request, pk):
         form = FAQForm(request.POST, request.FILES, instance=faq)
         if form.is_valid():
             faq = form.save(commit=False)
+            # ✅ 수정 시 새 카테고리 입력 시 반영
             if form.cleaned_data.get('new_category'):
                 faq.category = form.cleaned_data['new_category']
+            # ✅ 수정 시 새 구역 입력 시 반영
             if form.cleaned_data.get('new_area'):
                 faq.area = form.cleaned_data['new_area']
             faq.save()

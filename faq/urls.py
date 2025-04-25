@@ -3,6 +3,9 @@
 from django.urls import path  # 경로 설정 함수 import
 from . import views  # 같은 앱 내의 views.py import
 
+# ✅ 네임스페이스 지정: 템플릿에서 'faq:faq_list'처럼 호출 가능
+app_name = 'faq'
+
 urlpatterns = [
     # 📋 FAQ 리스트 페이지 (기본 루트)
     path('', views.faq_list, name='faq_list'),
