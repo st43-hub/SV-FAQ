@@ -1,10 +1,16 @@
-# ✅ faq/urls.py - FAQ 앱의 URL 라우팅 설정
+# ✅ faq/urls.py - FAQ 앱의 URL 라우팅 설정 (회원가입 차단 추가)
 
 from django.urls import path  # 경로 설정 함수 import
 from . import views  # 같은 앱 내의 views.py import
+from django.shortcuts import redirect  # 회원가입 차단용 함수 추가
 
 # ✅ 네임스페이스 지정: 템플릿에서 'faq:faq_list'처럼 호출 가능
 app_name = 'faq'
+
+# 🚫 회원가입 URL 막기용 함수
+
+def block_signup(request):
+    return redirect('/')  # 메인 페이지로 강제 이동
 
 urlpatterns = [
     # 📋 FAQ 리스트 페이지 (기본 루트)
@@ -27,4 +33,7 @@ urlpatterns = [
 
     # 📥 FAQ 데이터 불러오기 (JSON)
     path('import/', views.import_faqs, name='import_faqs'),
+
+    # 🚫 회원가입 URL 차단 경로 추가
+    path('accounts/signup/', block_signup, name='block_signup'),
 ]
