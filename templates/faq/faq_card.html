@@ -1,45 +1,57 @@
-{# 📦 FAQ 카드 하나를 단단하는 템플릿 컴포넌트 (반응형 개선 + 이미지 출력 포함 + URL 네임스페이스 적용) #}
-<div class="faq-card-js" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #dcdcdc; border-radius: 12px;">
-  <div class="faq-summary-js toggle-btn" type="button">
-    <!-- ✅ 반응형 적용: flex-wrap 추가 -->
-    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; width: 100%; gap: 0.75rem;">
-      <div style="display: flex; flex-direction: column; gap: 4px; min-width: 200px; flex: 1;">
-        <!-- ✅ 질문 상단에 카테고리 및 구역 정보 표시 -->
-        <div style="font-size: 0.85rem; color: #888; display: flex; gap: 8px; flex-wrap: wrap;">
-          <span>📂 {{ faq.category }}</span>
-          <span>📍 {{ faq.area }}</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span class="faq-toggle-icon" style="font-size: 1.2rem;">▶</span>
-          <span class="faq-title" style="font-weight: 600; font-size: 1rem; word-break: break-word;"><strong>Q.</strong> {{ faq.question }}</span>
-        </div>
+<div class="faq-card bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700 mb-6">
+  <div class="flex flex-wrap justify-between items-center">
+    <div class="flex flex-col gap-1">
+      <!-- 카테고리와 구역 정보 -->
+      <div class="flex gap-3 text-sm text-gray-400">
+        <span>📂 {{ faq.category }}</span>
+        <span>📍 {{ faq.area }}</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
-        <!-- ⭐ 즐겨찾기 아이콘 자리만 배치 (기능 미구현) -->
-        <span title="즐겨찾기" style="font-size: 1.1rem; cursor: pointer;">⭐</span>
-        {% if user.is_authenticated %}
-        <div class="faq-actions">
-          <!-- ✅ 네임스페이스 적용: faq:edit_faq -->
-          <a href="{% url 'faq:edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정" class="faq-icon-button">✏️</a>
-          <!-- ✅ 네임스페이스 적용: faq:delete_faq -->
-          <form method="post" action="{% url 'faq:delete_faq' faq.id %}?{{ request.GET.urlencode }}" style="display: inline; margin: 0; padding: 0;">
-            {% csrf_token %}
-            <button type="submit" title="삭제" class="faq-icon-button">🗑️</button>
-          </form>
-        </div>
-        {% endif %}
+      <!-- 질문 -->
+      <div class="flex items-center gap-2">
+        <span class="faq-toggle-icon text-purple-400">▶</span>
+        <h3 class="text-lg font-bold text-white break-words">Q. {{ faq.question }}</h3>
       </div>
     </div>
-  </div>
-  <div class="faq-answer-js" data-open="false" style="margin-top: 12px;">
-    <!-- ✅ 답변 영역 가독성 향상 -->
-    <p style="font-size: 0.95rem; line-height: 1.6;">{{ faq.answer|safe }}</p>
 
-    <!-- ✅ 이미지가 있을 경우 출력 -->
+    <!-- 즐겨찾기 + 수정/삭제 버튼 -->
+    <div class="flex items-center gap-3 mt-4 sm:mt-0">
+      <span title="즐겨찾기" class="text-lg cursor-pointer text-yellow-400">⭐</span>
+      {% if user.is_authenticated %}
+      <a href="{% url 'faq:edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정"
+         class="text-purple-400 hover:text-purple-500 text-lg">✏️</a>
+      <form method="post" action="{% url 'faq:delete_faq' faq.id %}?{{ request.GET.urlencode }}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" title="삭제" class="text-red-400 hover:text-red-500 text-lg">🗑️</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- 답변 -->
+  <div class="faq-answer mt-4 hidden text-gray-300">
+    <p class="leading-relaxed">{{ faq.answer|safe }}</p>
     {% if faq.image %}
-      <div style="margin-top: 12px;">
-        <img src="{{ faq.image.url }}" alt="FAQ 이미지" style="max-width: 100%; border-radius: 10px;">
-      </div>
+    <div class="mt-4">
+      <img src="{{ faq.image.url }}" alt="FAQ 이미지" class="max-w-full rounded-lg">
+    </div>
     {% endif %}
   </div>
+
+  <!-- 생성일자, 조회수 -->
+  <div class="mt-6 flex flex-wrap gap-3 text-sm text-gray-400">
+    <span>🕒 {{ faq.created_at|date:"Y-m-d" }}</span>
+    <span>👁️ {{ faq.view_count }}회</span>
+  </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.faq-toggle-icon');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const answer = button.closest('.faq-card').querySelector('.faq-answer');
+        answer.classList.toggle('hidden');
+      });
+    });
+  });
+</script>
