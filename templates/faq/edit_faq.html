@@ -16,7 +16,7 @@
         <div>
           <label for="id_question" class="block text-sm font-medium text-gray-700">❓ 질문</label>
           <input id="id_question" name="question" type="text" required placeholder="질문을 입력하세요"
-            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-base"
             value="{{ form.question.value|default:'' }}">
         </div>
 
@@ -24,7 +24,7 @@
         <div>
           <label for="id_answer" class="block text-sm font-medium text-gray-700">💬 답변</label>
           <textarea id="id_answer" name="answer" rows="6" required placeholder="답변을 입력하세요"
-            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base">{{ form.answer.value|default:'' }}</textarea>
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-base">{{ form.answer.value|default:'' }}</textarea>
         </div>
 
         <!-- 이미지 업로드 -->
@@ -38,7 +38,7 @@
         <div>
           <label for="id_reference" class="block text-sm font-medium text-gray-700">🔗 참고 링크</label>
           <input id="id_reference" name="reference" type="url" placeholder="https://example.com"
-            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-base"
             value="{{ form.reference.value|default:'' }}">
         </div>
 
@@ -46,17 +46,27 @@
         <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0">
           <div class="w-full sm:w-1/2">
             <label for="id_category" class="block text-sm font-medium text-gray-700">📂 카테고리</label>
-            <input id="id_category" name="category" type="text" required placeholder="카테고리를 입력하세요"
-              class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
-              value="{{ form.category.value|default:'' }}">
+            <select id="id_category" name="category" required
+              class="appearance-none rounded-lg block w-full px-4 py-3 border border-purple-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-base">
+              <option value="">카테고리 선택</option>
+              <option value="LD" {% if form.category.value == "LD" %}selected{% endif %}>LD</option>
+              <option value="RBD" {% if form.category.value == "RBD" %}selected{% endif %}>RBD</option>
+              <option value="Lane" {% if form.category.value == "Lane" %}selected{% endif %}>Lane</option>
+              <option value="Tool" {% if form.category.value == "Tool" %}selected{% endif %}>Tool</option>
+            </select>
             <input id="id_new_category" name="new_category" type="text" placeholder="새 카테고리를 입력하세요"
-              class="mt-2 appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-400 focus:border-purple-400 focus:z-10 sm:text-base">
+              class="mt-2 appearance-none rounded-lg block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-400 focus:border-purple-400 sm:text-base">
           </div>
           <div class="w-full sm:w-1/2">
             <label for="id_area" class="block text-sm font-medium text-gray-700">🗺️ 구역</label>
-            <input id="id_area" name="area" type="text" required placeholder="구역을 입력하세요"
-              class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-purple-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
-              value="{{ form.area.value|default:'' }}">
+            <select id="id_area" name="area" required
+              class="appearance-none rounded-lg block w-full px-4 py-3 border border-purple-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-base">
+              <option value="">구역 선택</option>
+              <option value="LD" {% if form.area.value == "LD" %}selected{% endif %}>LD</option>
+              <option value="RBD" {% if form.area.value == "RBD" %}selected{% endif %}>RBD</option>
+              <option value="Lane" {% if form.area.value == "Lane" %}selected{% endif %}>Lane</option>
+              <option value="Tool" {% if form.area.value == "Tool" %}selected{% endif %}>Tool</option>
+            </select>
           </div>
         </div>
       </div>
