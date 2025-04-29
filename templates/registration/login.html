@@ -1,19 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md space-y-6">
-  <h2 class="text-2xl font-bold text-center text-purple-700">🔐 로그인</h2>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-2xl shadow-xl">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-purple-700">🔐 관리자 로그인</h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        관리자 계정만 로그인할 수 있습니다.
+      </p>
+    </div>
 
-  <form method="post" class="space-y-4">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold">
-      로그인
-    </button>
-  </form>
+    {# 로그인 실패 시 에러 메시지 표시 #}
+    {% if form.errors %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">로그인 실패!</strong>
+        <span class="block sm:inline">아이디 또는 비밀번호를 다시 확인해 주세요.</span>
+      </div>
+    {% endif %}
 
-  <div class="text-center text-sm text-gray-500">
-    관리자 계정만 로그인할 수 있습니다.
+    <form method="post" class="mt-8 space-y-6">
+      {% csrf_token %}
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div class="mb-4">
+          <label for="id_username" class="block text-sm font-medium text-gray-700">아이디</label>
+          <input id="id_username" name="username" type="text" autocomplete="username" required
+            class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+            placeholder="아이디를 입력하세요">
+        </div>
+        <div>
+          <label for="id_password" class="block text-sm font-medium text-gray-700">비밀번호</label>
+          <input id="id_password" name="password" type="password" autocomplete="current-password" required
+            class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+            placeholder="비밀번호를 입력하세요">
+        </div>
+      </div>
+
+      <div>
+        <button type="submit"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out">
+          로그인
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 {% endblock %}
