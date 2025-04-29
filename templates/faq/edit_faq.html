@@ -1,62 +1,76 @@
 {% extends 'base.html' %}
-{% load widget_tweaks %}
 
 {% block content %}
-<h2 class="text-xl font-bold text-purple-800 mb-4">✏️ FAQ 수정</h2>
-
-<!-- 기존 Add/Edit FAQ Form 개선 버전 (as_widget 없이 직접 출력) -->
-<form method="post" enctype="multipart/form-data" class="faq-form space-y-6">
-  {% csrf_token %}
-
-  <!-- ❓ 질문 입력 -->
-  <div>
-    <label for="id_question" class="block text-lg font-semibold">❓ 질문</label>
-    <div class="w-full p-2 border rounded-lg">
-      {{ form.question }}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl w-full space-y-8 p-10 bg-white rounded-2xl shadow-xl">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-purple-700">
+        ✏️ FAQ 수정
+      </h2>
     </div>
-  </div>
 
-  <!-- 💬 답변 입력 -->
-  <div>
-    <label for="id_answer" class="block text-lg font-semibold">💬 답변</label>
-    <div class="w-full p-2 border rounded-lg">
-      {{ form.answer }}
-    </div>
-  </div>
+    <form method="post" enctype="multipart/form-data" class="mt-8 space-y-6">
+      {% csrf_token %}
+      <div class="space-y-4">
+        <!-- 질문 입력 -->
+        <div>
+          <label for="id_question" class="block text-sm font-medium text-gray-700">❓ 질문</label>
+          <input id="id_question" name="question" type="text" required placeholder="질문을 입력하세요"
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
+            value="{{ form.question.value|default:'' }}">
+        </div>
 
-  <!-- 🖼️ 이미지 업로드 -->
-  <div>
-    <label for="id_image" class="block text-lg font-semibold">🖼️ 이미지 업로드</label>
-    <div class="w-full p-2 border rounded-lg">
-      {{ form.image }}
-    </div>
-  </div>
+        <!-- 답변 입력 -->
+        <div>
+          <label for="id_answer" class="block text-sm font-medium text-gray-700">💬 답변</label>
+          <textarea id="id_answer" name="answer" rows="6" required placeholder="답변을 입력하세요"
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base">{{ form.answer.value|default:'' }}</textarea>
+        </div>
 
-  <!-- 🔗 참고 링크 -->
-  <div>
-    <label for="id_reference" class="block text-lg font-semibold">🔗 참고 링크</label>
-    <div class="w-full p-2 border rounded-lg">
-      {{ form.reference }}
-    </div>
-  </div>
+        <!-- 이미지 업로드 -->
+        <div>
+          <label for="id_image" class="block text-sm font-medium text-gray-700">🖼️ 이미지 업로드</label>
+          <input id="id_image" name="image" type="file"
+            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"/>
+        </div>
 
-  <!-- 📂 카테고리 선택 및 추가 입력 -->
-  <div>
-    <label for="id_category" class="block text-lg font-semibold">📂 카테고리</label>
-    {{ form.category }}
-    <input type="text" name="new_category" placeholder="새 카테고리 입력" class="mt-2 w-full p-2 border rounded-lg">
-  </div>
+        <!-- 참고 링크 입력 -->
+        <div>
+          <label for="id_reference" class="block text-sm font-medium text-gray-700">🔗 참고 링크</label>
+          <input id="id_reference" name="reference" type="url" placeholder="https://example.com"
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
+            value="{{ form.reference.value|default:'' }}">
+        </div>
 
-  <!-- 🗺️ 구역 선택 -->
-  <div>
-    <label for="id_area" class="block text-lg font-semibold">🗺️ 구역</label>
-    {{ form.area }}
-  </div>
+        <!-- 카테고리 입력 및 새 카테고리 추가 -->
+        <div>
+          <label for="id_category" class="block text-sm font-medium text-gray-700">📂 카테고리</label>
+          <input id="id_category" name="category" type="text" required placeholder="카테고리를 입력하세요"
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
+            value="{{ form.category.value|default:'' }}">
+          <input id="id_new_category" name="new_category" type="text" placeholder="새 카테고리를 입력하세요"
+            class="mt-2 appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-400 focus:border-purple-400 focus:z-10 sm:text-base">
+        </div>
 
-  <!-- 저장 버튼 & 뒤로가기 -->
-  <div class="flex justify-end items-center gap-3">
-    <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-xl">💾 저장</button>
-    <a href="/" class="bg-gray-200 hover:bg-gray-300 text-black py-2 px-4 rounded-xl">🔙 뒤로</a>
+        <!-- 구역 입력 -->
+        <div>
+          <label for="id_area" class="block text-sm font-medium text-gray-700">🗺️ 구역</label>
+          <input id="id_area" name="area" type="text" required placeholder="구역을 입력하세요"
+            class="appearance-none rounded-lg relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-base"
+            value="{{ form.area.value|default:'' }}">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mt-8">
+        <button type="submit"
+          class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150 ease-in-out">
+          💾 저장
+        </button>
+        <a href="/" class="inline-flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+          🔙 뒤로
+        </a>
+      </div>
+    </form>
   </div>
-</form>
+</div>
 {% endblock %}
