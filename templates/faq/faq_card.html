@@ -31,7 +31,7 @@
   </div>
 
   <!-- 펼쳐지는 답변 영역 -->
-  <div class="faq-answer-js overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0 mt-2" data-open="false">
+  <div class="faq-answer-js overflow-hidden max-h-0 opacity-0 mt-2 transition-all duration-300 ease-in-out" data-open="false">
     <div class="text-gray-200">
       <p class="leading-relaxed">{{ faq.answer|safe }}</p>
       {% if faq.image %}
@@ -82,13 +82,6 @@
           wrapper.style.opacity = "1";
           wrapper.setAttribute("data-open", "true");
           icon.textContent = "▼";
-
-          wrapper.addEventListener("transitionend", function handler() {
-            if (wrapper.getAttribute("data-open") === "true") {
-              wrapper.style.maxHeight = "none";
-            }
-            wrapper.removeEventListener("transitionend", handler);
-          });
         }
       });
     });

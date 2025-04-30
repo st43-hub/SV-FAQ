@@ -92,8 +92,9 @@
 
 .faq-answer-js {
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.25s ease-in-out, padding 0.25s ease-in-out;
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
   padding: 0 1rem;
   font-size: 1rem;
   font-family: "Segoe UI", sans-serif;
@@ -102,6 +103,7 @@
 
 .faq-answer-js[data-open="true"] {
   max-height: 1000px;
+  opacity: 1;
   padding: 1rem 1rem 1rem 2.25rem;
 }
 
