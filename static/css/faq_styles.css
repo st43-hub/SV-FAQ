@@ -1,13 +1,12 @@
 /* 🎨 FAQ 카드, 버튼, 애니메이션 전용 CSS - 다크 모드 최적화 */
 
 .faq-card-js {
-  background: #1f2937; /* dark card background */
+  background: #1f2937;
   border: 1px solid #4c1d95;
   border-radius: 12px;
   margin: 12px 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: background-color 0.3s ease;
-  overflow: visible;
   padding: 16px;
   font-family: "Segoe UI", sans-serif;
   font-size: 1rem;
@@ -29,13 +28,6 @@
   color: #c084fc;
   cursor: pointer;
   border-bottom: 1px dashed #6b7280;
-  background: transparent;
-  border: none;
-  text-align: left;
-}
-
-.faq-summary-js.open .faq-toggle-icon {
-  transform: rotate(90deg);
 }
 
 .faq-toggle-icon {
@@ -54,56 +46,16 @@
   line-height: 1.4;
 }
 
-.faq-actions {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 6px;
-  flex-shrink: 0;
-}
-
-.faq-actions form {
-  display: inline-block;
-  margin: 0;
-}
-
-.faq-icon-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 4px;
-  margin: 0;
-  color: #c084fc;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  transition: transform 0.2s ease, color 0.2s ease;
-  text-decoration: none;
-}
-
-.faq-icon-button:hover {
-  color: #f0abfc;
-  transform: scale(1.15);
-}
-
 .faq-answer-js {
   max-height: 0;
-  overflow: hidden;
   opacity: 0;
-  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
-  padding: 0 1rem;
-  font-size: 1rem;
-  font-family: "Segoe UI", sans-serif;
-  color: #d1d5db;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
 .faq-answer-js[data-open="true"] {
-  padding: 1rem 1rem 1rem 2.25rem;
   opacity: 1;
+  padding-top: 12px;
 }
 
 .faq-answer-js img {
@@ -134,21 +86,6 @@
   color: #ede9fe;
 }
 
-input[type="text"],
-input[type="url"],
-textarea,
-select {
-  font-family: "Segoe UI", sans-serif;
-  font-size: 1rem;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #7c3aed;
-  background-color: #1f2937;
-  color: #f9fafb;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 .btn-light {
   background-color: #5b21b6;
   color: white;
@@ -161,12 +98,6 @@ select {
 
 .btn-light:hover {
   background-color: #7c3aed;
-}
-
-.btn-active {
-  background-color: #a855f7;
-  color: white;
-  font-weight: bold;
 }
 
 .btn-primary {
@@ -195,19 +126,23 @@ select {
   .faq-card-js {
     padding: 12px;
   }
+
   .faq-summary-js {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
+
   .faq-actions {
     padding-right: 0;
     margin-top: 6px;
   }
+
   form,
   .faq-filter-form {
     flex-direction: column;
   }
+
   form > div,
   .faq-filter-form > div {
     width: 100%;

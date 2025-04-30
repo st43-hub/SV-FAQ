@@ -31,8 +31,8 @@
   </div>
 
   <!-- 펼쳐지는 답변 영역 -->
-  <div class="faq-answer-js overflow-hidden max-h-0 opacity-0 mt-2 transition-all duration-300 ease-in-out" data-open="false">
-    <div class="text-gray-200">
+  <div class="faq-answer-js max-h-0 opacity-0 overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out" data-open="false">
+    <div class="text-gray-200 mt-3">
       <p class="leading-relaxed">{{ faq.answer|safe }}</p>
       {% if faq.image %}
       <div class="mt-4">
@@ -60,7 +60,7 @@
         const icon = card.querySelector(".faq-toggle-icon");
         const isOpen = wrapper.getAttribute("data-open") === "true";
 
-        // 모든 카드 닫기
+        // 다른 카드 닫기
         document.querySelectorAll(".faq-card-js").forEach((c) => {
           const otherWrapper = c.querySelector(".faq-answer-js");
           const otherIcon = c.querySelector(".faq-toggle-icon");
@@ -68,20 +68,34 @@
             otherWrapper.style.maxHeight = "0px";
             otherWrapper.style.opacity = "0";
             otherWrapper.setAttribute("data-open", "false");
-            otherIcon.textContent = "▶";
+            if (otherIcon) otherIcon.textContent = "▶";
           }
         });
 
         if (isOpen) {
+          wrapper.style.maxHeight = wrapper.scrollHeight + "px";
+          requestAnimationFrame(() => {
+            wrapper.style.maxHeight = "0px";
+            wrapper.style.opacity = "0";
+            wrapper.setAttribute("data-open", "false");
+            if (icon) icon.textContent = "▶";
+          });
+        } else {
           wrapper.style.maxHeight = "0px";
           wrapper.style.opacity = "0";
-          wrapper.setAttribute("data-open", "false");
-          icon.textContent = "▶";
-        } else {
-          wrapper.style.maxHeight = wrapper.scrollHeight + "px";
-          wrapper.style.opacity = "1";
           wrapper.setAttribute("data-open", "true");
-          icon.textContent = "▼";
+          if (icon) icon.textContent = "▼";
+          requestAnimationFrame(() => {
+            wrapper.style.maxHeight = wrapper.scrollHeight + "px";
+            wrapper.style.opacity = "1";
+          });
+
+          wrapper.addEventListener("transitionend", function handler() {
+            if (wrapper.getAttribute("data-open") === "true") {
+              wrapper.style.maxHeight = "none";
+            }
+            wrapper.removeEventListener("transitionend", handler);
+          });
         }
       });
     });
