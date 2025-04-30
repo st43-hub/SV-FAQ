@@ -1,4 +1,4 @@
-{# 📦 FAQ 카드 컴포넌트 - 버그 개선: 애니메이션 부드럽게 + 카드 색상 통일 + 아이콘 전환 정확도 향상 #}
+{# 📦 FAQ 카드 컴포넌트 - 애니메이션 개선 + 아이콘 전환 + 스타일 통일 #}
 <div class="faq-card-js bg-gray-700 rounded-xl shadow-lg p-6 border border-gray-600 mb-6 text-white">
   <div class="faq-summary-js cursor-pointer select-none">
     <div class="flex flex-wrap justify-between items-center">
@@ -50,25 +50,44 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.faq-card-js');
-    cards.forEach(card => {
-      const summary = card.querySelector('.faq-summary-js');
-      const answer = card.querySelector('.faq-answer-js');
-      const icon = card.querySelector('.faq-toggle-icon');
+  document.addEventListener("DOMContentLoaded", function () {
+    const summaries = document.querySelectorAll(".faq-summary-js");
 
-      summary.addEventListener('click', () => {
-        const isOpen = answer.getAttribute('data-open') === 'true';
+    summaries.forEach((summary) => {
+      summary.addEventListener("click", () => {
+        const card = summary.closest(".faq-card-js");
+        const wrapper = card.querySelector(".faq-answer-js");
+        const icon = card.querySelector(".faq-toggle-icon");
+        const isOpen = wrapper.getAttribute("data-open") === "true";
+
+        // 모든 카드 닫기
+        document.querySelectorAll(".faq-card-js").forEach((c) => {
+          const otherWrapper = c.querySelector(".faq-answer-js");
+          const otherIcon = c.querySelector(".faq-toggle-icon");
+          if (c !== card && otherWrapper.getAttribute("data-open") === "true") {
+            otherWrapper.style.maxHeight = "0px";
+            otherWrapper.setAttribute("data-open", "false");
+            otherIcon.textContent = "▶";
+          }
+        });
+
         if (isOpen) {
-          answer.style.maxHeight = '0px';
-          answer.style.opacity = '0';
-          answer.setAttribute('data-open', 'false');
-          icon.textContent = '▶';
+          wrapper.style.maxHeight = "0px";
+          wrapper.style.opacity = "0";
+          wrapper.setAttribute("data-open", "false");
+          icon.textContent = "▶";
         } else {
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-          answer.style.opacity = '1';
-          answer.setAttribute('data-open', 'true');
-          icon.textContent = '▼';
+          wrapper.style.maxHeight = wrapper.scrollHeight + "px";
+          wrapper.style.opacity = "1";
+          wrapper.setAttribute("data-open", "true");
+          icon.textContent = "▼";
+
+          wrapper.addEventListener("transitionend", function handler() {
+            if (wrapper.getAttribute("data-open") === "true") {
+              wrapper.style.maxHeight = "none";
+            }
+            wrapper.removeEventListener("transitionend", handler);
+          });
         }
       });
     });
