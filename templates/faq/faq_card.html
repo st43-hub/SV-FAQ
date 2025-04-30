@@ -66,6 +66,7 @@
           const otherIcon = c.querySelector(".faq-toggle-icon");
           if (c !== card && otherWrapper.getAttribute("data-open") === "true") {
             otherWrapper.style.maxHeight = "0px";
+            otherWrapper.style.opacity = "0";
             otherWrapper.setAttribute("data-open", "false");
             otherIcon.textContent = "▶";
           }
