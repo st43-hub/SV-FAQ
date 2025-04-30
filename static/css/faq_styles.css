@@ -1,7 +1,7 @@
 /* 🎨 FAQ 카드, 버튼, 애니메이션 전용 CSS - 다크 모드 최적화 */
 
 .faq-card-js {
-  background: #1f2937;
+  background: #1f2937; /* dark card background */
   border: 1px solid #4c1d95;
   border-radius: 12px;
   margin: 12px 0;
@@ -32,7 +32,6 @@
   background: transparent;
   border: none;
   text-align: left;
-  transition: color 0.2s ease;
 }
 
 .faq-summary-js.open .faq-toggle-icon {
@@ -93,9 +92,9 @@
 
 .faq-answer-js {
   max-height: 0;
-  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
   padding: 0 1rem;
   font-size: 1rem;
   font-family: "Segoe UI", sans-serif;
