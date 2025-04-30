@@ -1,16 +1,16 @@
-{# 📦 FAQ 카드 컴포넌트 - labelit 스타일 + scrollHeight 애니메이션 복구용 #}
-<div class="faq-card-js bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700 mb-6">
+{# 📦 FAQ 카드 컴포넌트 - 버그 개선: 애니메이션 부드럽게 + 카드 색상 통일 + 아이콘 전환 정확도 향상 #}
+<div class="faq-card-js bg-gray-700 rounded-xl shadow-lg p-6 border border-gray-600 mb-6 text-white">
   <div class="faq-summary-js cursor-pointer select-none">
     <div class="flex flex-wrap justify-between items-center">
       <div class="flex flex-col gap-1">
         <!-- 카테고리와 구역 정보 -->
-        <div class="flex gap-3 text-sm text-gray-400">
+        <div class="flex gap-3 text-sm text-gray-300">
           <span>📂 {{ faq.category }}</span>
           <span>📍 {{ faq.area }}</span>
         </div>
         <!-- 질문 -->
         <div class="flex items-center gap-2">
-          <span class="faq-toggle-icon text-purple-400">▶</span>
+          <span class="faq-toggle-icon transition-transform duration-200 text-purple-300">▶</span>
           <h3 class="text-lg font-bold text-white break-words">Q. {{ faq.question }}</h3>
         </div>
       </div>
@@ -20,7 +20,7 @@
         <span title="즐겨찾기" class="text-lg cursor-pointer text-yellow-400">⭐</span>
         {% if user.is_authenticated %}
         <a href="{% url 'faq:edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정"
-           class="text-purple-400 hover:text-purple-500 text-lg">✏️</a>
+           class="text-purple-300 hover:text-purple-400 text-lg">✏️</a>
         <form method="post" action="{% url 'faq:delete_faq' faq.id %}?{{ request.GET.urlencode }}" class="inline">
           {% csrf_token %}
           <button type="submit" title="삭제" class="text-red-400 hover:text-red-500 text-lg">🗑️</button>
@@ -30,11 +30,10 @@
     </div>
   </div>
 
-  <!-- 펼쳐지는 답변 영역 (scrollHeight 기반 애니메이션) -->
-  <div class="faq-answer-js overflow-hidden mt-4 transition-all duration-300 ease-in-out max-h-0" data-open="false">
-    <div class="text-gray-300">
+  <!-- 펼쳐지는 답변 영역 -->
+  <div class="faq-answer-js overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0 mt-2" data-open="false">
+    <div class="text-gray-200">
       <p class="leading-relaxed">{{ faq.answer|safe }}</p>
-
       {% if faq.image %}
       <div class="mt-4">
         <img src="{{ faq.image.url }}" alt="FAQ 이미지" class="max-w-full rounded-lg">
@@ -62,10 +61,12 @@
         const isOpen = answer.getAttribute('data-open') === 'true';
         if (isOpen) {
           answer.style.maxHeight = '0px';
+          answer.style.opacity = '0';
           answer.setAttribute('data-open', 'false');
           icon.textContent = '▶';
         } else {
           answer.style.maxHeight = answer.scrollHeight + 'px';
+          answer.style.opacity = '1';
           answer.setAttribute('data-open', 'true');
           icon.textContent = '▼';
         }
