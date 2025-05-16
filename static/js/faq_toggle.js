@@ -16,9 +16,8 @@ window.addEventListener("DOMContentLoaded", () => {
         if (c !== card) {
           const a = c.querySelector(".faq-answer-js");
           const i = c.querySelector(".faq-toggle-icon");
-          a.style.transition = "height 0.3s ease, opacity 0.2s ease";
+          a.style.transition = "opacity 0.2s ease, height 0.3s ease";
           a.style.opacity = "0";
-          a.style.height = a.scrollHeight + "px";
           requestAnimationFrame(() => {
             a.style.height = "0px";
             a.setAttribute("data-open", "false");
@@ -32,14 +31,10 @@ window.addEventListener("DOMContentLoaded", () => {
         answer.style.height = "0px";
         answer.style.opacity = "0";
         requestAnimationFrame(() => {
-          answer.style.transition = "height 0.4s ease, opacity 0.3s ease";
+          answer.style.transition = "opacity 0.2s ease, height 0.3s ease";
           answer.style.height = answer.scrollHeight + "px";
-        });
-
-        // opacity는 height 시작 후에 조금 지연해서 처리
-        setTimeout(() => {
           answer.style.opacity = "1";
-        }, 100);
+        });
 
         answer.setAttribute("data-open", "true");
         if (icon) icon.textContent = "▼";
@@ -52,14 +47,11 @@ window.addEventListener("DOMContentLoaded", () => {
           answer.removeEventListener("transitionend", handler);
         });
       } else {
-        answer.style.height = answer.scrollHeight + "px";
+        answer.style.transition = "opacity 0.2s ease, height 0.3s ease";
+        answer.style.opacity = "0";
         requestAnimationFrame(() => {
-          answer.style.transition = "height 0.3s ease, opacity 0.2s ease";
-          answer.style.opacity = "0";
-        });
-        setTimeout(() => {
           answer.style.height = "0px";
-        }, 200);
+        });
 
         answer.setAttribute("data-open", "false");
         if (icon) icon.textContent = "▶";
