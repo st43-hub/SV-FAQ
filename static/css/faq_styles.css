@@ -1,4 +1,4 @@
-/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션 전용 CSS - 최종 시각 리디자인 반영 */
+/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션, 필터, 입력창 UI 전체 리디자인 */
 
 /* 전체 배경 및 텍스트 컬러 */
 body {
@@ -120,4 +120,40 @@ body {
   color: #a1a1aa;
   font-size: 1rem;
   margin: 40px 0;
+}
+
+/* 🔍 필터/검색 영역 스타일 */
+input[type="text"],
+select {
+  background-color: #1f1f23;
+  color: #d4d4d8;
+  border: 1px solid #404045;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+}
+
+input[type="text"]::placeholder {
+  color: #6b7280;
+}
+
+select:focus,
+input[type="text"]:focus {
+  border-color: #7c7c7c;
+  box-shadow: 0 0 0 1px #555;
+}
+
+/* 검색 버튼 */
+button[type="submit"] {
+  background-color: #2f2f33;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #3a3a3f;
 }
