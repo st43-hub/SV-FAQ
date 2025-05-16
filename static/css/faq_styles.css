@@ -1,4 +1,4 @@
-/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션, 필터, 입력창 UI 전체 리디자인 */
+/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션, 필터, 입력창 UI 전체 리디자인 + 브랜드 보라색 제거 → 흰색 중심 테마 */
 
 /* 전체 배경 및 텍스트 컬러 */
 body {
@@ -38,7 +38,7 @@ body {
 
 .faq-toggle-icon {
   transition: transform 0.2s ease;
-  color: #a1a1aa;
+  color: #d4d4d8;
 }
 
 .faq-title {
@@ -87,22 +87,24 @@ body {
 }
 
 /* 버튼 */
-.btn-light {
+.btn-light,
+.btn-light:focus {
   background-color: #2a2a2e;
-  color: #e4e4e7;
+  color: #ffffff;
   border: 1px solid #404045;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 0.9rem;
+  box-shadow: none;
 }
 
 .btn-light:hover {
-  background-color: #34343a;
+  background-color: #3a3a3f;
 }
 
 .btn-primary {
-  background-color: #34343a;
-  color: #e5e7eb;
+  background-color: #3a3a3f;
+  color: #ffffff;
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
@@ -126,7 +128,7 @@ body {
 input[type="text"],
 select {
   background-color: #1f1f23;
-  color: #d4d4d8;
+  color: #ffffff;
   border: 1px solid #404045;
   padding: 8px 12px;
   border-radius: 6px;
@@ -139,14 +141,14 @@ input[type="text"]::placeholder {
 
 select:focus,
 input[type="text"]:focus {
-  border-color: #7c7c7c;
-  box-shadow: 0 0 0 1px #555;
+  border-color: #999;
+  box-shadow: 0 0 0 1px #666;
 }
 
 /* 검색 버튼 */
 button[type="submit"] {
-  background-color: #2f2f33;
-  color: #f3f4f6;
+  background-color: #3a3a3f;
+  color: #ffffff;
   border: none;
   border-radius: 6px;
   padding: 8px 14px;
@@ -155,5 +157,19 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #3a3a3f;
+  background-color: #505054;
+}
+
+/* 활성화된 탭 버튼 */
+button.active,
+.btn-light.active {
+  background-color: #ffffff;
+  color: #1c1d22;
+  font-weight: bold;
+  border: 1px solid #ffffff;
+}
+
+/* 폼 영역 전체 간격 통일 */
+form.flex.flex-wrap {
+  gap: 12px;
 }
