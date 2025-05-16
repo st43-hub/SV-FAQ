@@ -1,43 +1,44 @@
-/* 🎨 FAQ 카드, 버튼, 애니메이션 전용 CSS - 다크 모드 최적화 */
+/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션 전용 CSS */
 
-.faq-card-js {
-  background: #1f2937;
-  border: 1px solid #4c1d95;
-  border-radius: 12px;
-  margin: 12px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transition: background-color 0.3s ease;
-  padding: 16px;
+/* 전체 배경 및 텍스트 컬러 */
+body {
+  background-color: #1c1d22;
+  color: #e4e4e7;
   font-family: "Segoe UI", sans-serif;
-  font-size: 1rem;
-  color: #f3f4f6;
+}
+
+/* 카드 기본 */
+.faq-card-js {
+  background: #1f1f23;
+  border: 1px solid #2f2f35;
+  border-radius: 8px;
+  margin: 12px 0;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  padding: 16px;
 }
 
 .faq-card-js.open {
-  background-color: #312e81;
+  background: #27272a;
+  border-color: #3f3f46;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .faq-summary-js {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
   padding: 8px 12px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #c084fc;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f4f4f5;
   cursor: pointer;
-  border-bottom: 1px dashed #6b7280;
+  border-bottom: 1px dashed #3f3f46;
 }
 
 .faq-toggle-icon {
-  display: inline-block;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: transform 0.2s ease;
   color: #a78bfa;
-}
-
-.faq-summary-js:hover .faq-toggle-icon {
-  color: #c084fc;
 }
 
 .faq-title {
@@ -46,95 +47,76 @@
   line-height: 1.4;
 }
 
-/* 삭제된 부분: .faq-answer-js { max-height / opacity / transition } */
+.faq-answer-js {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  padding-top: 8px;
+  color: #d4d4d8;
+}
+
+.faq-answer-js[data-open="true"] {
+  opacity: 1;
+}
 
 .faq-answer-js img {
   max-width: 100%;
   height: auto;
-  margin: 12px 0;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  margin: 12px 0;
 }
 
 .faq-answer-js table {
   width: 100%;
   border-collapse: collapse;
   margin: 12px 0;
-  background: #1e1b4b;
-  border: 1px solid #6b7280;
+  background: #25262b;
+  border: 1px solid #3f3f46;
 }
 
 .faq-answer-js th,
 .faq-answer-js td {
-  border: 1px solid #4b5563;
   padding: 8px 12px;
-  text-align: left;
+  border: 1px solid #3f3f46;
+  color: #f4f4f5;
 }
 
 .faq-answer-js th {
-  background-color: #3730a3;
-  color: #ede9fe;
+  background-color: #333438;
 }
 
+/* 버튼 */
 .btn-light {
-  background-color: #5b21b6;
-  color: white;
-  padding: 8px 12px;
-  border: 1px solid #7c3aed;
+  background-color: #2f2f35;
+  color: #e4e4e7;
+  border: 1px solid #42434a;
+  padding: 6px 12px;
   border-radius: 6px;
-  text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .btn-light:hover {
-  background-color: #7c3aed;
+  background-color: #3a3b40;
 }
 
 .btn-primary {
   background-color: #8b5cf6;
   color: white;
-  padding: 10px 16px;
+  padding: 8px 14px;
   border: none;
   border-radius: 6px;
-  font-size: 1rem;
 }
 
 .faq-meta {
-  font-size: 0.9rem;
-  color: #9ca3af;
+  font-size: 0.85rem;
+  color: #a1a1aa;
   margin-top: 8px;
 }
 
 .faq-empty {
   text-align: center;
-  color: #9ca3af;
+  color: #a1a1aa;
   font-size: 1rem;
   margin: 40px 0;
-}
-
-@media (max-width: 768px) {
-  .faq-card-js {
-    padding: 12px;
-  }
-
-  .faq-summary-js {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .faq-actions {
-    padding-right: 0;
-    margin-top: 6px;
-  }
-
-  form,
-  .faq-filter-form {
-    flex-direction: column;
-  }
-
-  form > div,
-  .faq-filter-form > div {
-    width: 100%;
-  }
 }
