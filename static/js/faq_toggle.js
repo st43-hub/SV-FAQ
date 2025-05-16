@@ -32,21 +32,17 @@ window.addEventListener("DOMContentLoaded", () => {
         answer.style.height = "0px";
         answer.style.opacity = "0";
         requestAnimationFrame(() => {
-          answer.style.transition = "height 0.3s ease, opacity 0.2s ease";
+          answer.style.transition = "height 0.4s ease, opacity 0.25s ease";
           answer.style.height = answer.scrollHeight + "px";
-        });
-
-        // opacity는 height 시작 후에 살짝 지연해서 실행
-        setTimeout(() => {
           answer.style.opacity = "1";
-        }, 100);
+        });
 
         answer.setAttribute("data-open", "true");
         if (icon) icon.textContent = "▼";
         card.classList.add("open");
 
-        answer.addEventListener("transitionend", function handler() {
-          if (answer.getAttribute("data-open") === "true") {
+        answer.addEventListener("transitionend", function handler(e) {
+          if (e.propertyName === "height" && answer.getAttribute("data-open") === "true") {
             answer.style.height = "auto";
           }
           answer.removeEventListener("transitionend", handler);
