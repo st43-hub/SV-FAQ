@@ -11,51 +11,49 @@ window.addEventListener("DOMContentLoaded", () => {
       const icon = card.querySelector(".faq-toggle-icon");
       const isOpen = answer.getAttribute("data-open") === "true";
 
-      // 모든 카드 닫기
+      // 다른 카드 닫기
       document.querySelectorAll(".faq-card-js").forEach((c) => {
         if (c !== card) {
-          const otherAnswer = c.querySelector(".faq-answer-js");
-          const otherIcon = c.querySelector(".faq-toggle-icon");
-          if (otherAnswer.getAttribute("data-open") === "true") {
-            otherAnswer.style.maxHeight = otherAnswer.scrollHeight + "px";
-            requestAnimationFrame(() => {
-              otherAnswer.style.transition = "max-height 0.4s ease";
-              otherAnswer.style.maxHeight = "0px";
-              otherAnswer.setAttribute("data-open", "false");
-              if (otherIcon) otherIcon.textContent = "▶";
-              c.classList.remove("open");
-            });
-          }
+          const a = c.querySelector(".faq-answer-js");
+          const i = c.querySelector(".faq-toggle-icon");
+          a.style.height = a.scrollHeight + "px";
+          requestAnimationFrame(() => {
+            a.style.transition = "height 0.3s ease";
+            a.style.height = "0px";
+            a.setAttribute("data-open", "false");
+            if (i) i.textContent = "▶";
+            c.classList.remove("open");
+          });
         }
       });
 
-      // 현재 카드 토글
-      if (isOpen) {
-        answer.style.maxHeight = answer.scrollHeight + "px";
+      // 현재 카드 열기/닫기
+      if (!isOpen) {
+        answer.style.height = "0px";
         requestAnimationFrame(() => {
-          answer.style.transition = "max-height 0.4s ease";
-          answer.style.maxHeight = "0px";
-        });
-        answer.setAttribute("data-open", "false");
-        if (icon) icon.textContent = "▶";
-        card.classList.remove("open");
-      } else {
-        answer.style.maxHeight = "0px";
-        requestAnimationFrame(() => {
-          answer.style.transition = "max-height 0.4s ease";
-          answer.style.maxHeight = answer.scrollHeight + "px";
+          answer.style.transition = "height 0.3s ease";
+          answer.style.height = answer.scrollHeight + "px";
         });
         answer.setAttribute("data-open", "true");
         if (icon) icon.textContent = "▼";
         card.classList.add("open");
 
-        // max-height 해제 (접힘 방지)
+        // 펼친 후 height: auto 적용
         answer.addEventListener("transitionend", function handler() {
           if (answer.getAttribute("data-open") === "true") {
-            answer.style.maxHeight = "none";
+            answer.style.height = "auto";
           }
           answer.removeEventListener("transitionend", handler);
         });
+      } else {
+        answer.style.height = answer.scrollHeight + "px";
+        requestAnimationFrame(() => {
+          answer.style.transition = "height 0.3s ease";
+          answer.style.height = "0px";
+        });
+        answer.setAttribute("data-open", "false");
+        if (icon) icon.textContent = "▶";
+        card.classList.remove("open");
       }
     });
   });
