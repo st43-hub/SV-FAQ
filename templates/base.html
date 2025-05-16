@@ -61,8 +61,8 @@
       {% if request.user.is_authenticated %}
         <a href="/add/" class="text-sm text-gray-300 hover:text-white">➕ FAQ 추가</a>
         <a href="/stats/" class="text-sm text-gray-300 hover:text-white">📊 통계</a>
-        <a href="/export/" class="text-sm text-gray-300 hover:text-white">📤 내보내기</a>
-        <a href="/import/" class="text-sm text-gray-300 hover:text-white">📥 불러오기</a>
+        <a href="/export/" class="text-sm text-gray-300 hover:text-white">📄 내보내기</a>
+        <a href="/import/" class="text-sm text-gray-300 hover:text-white">📅 불러오기</a>
       {% else %}
         <a href="/accounts/login/" class="text-sm text-purple-400 hover:underline">로그인</a>
       {% endif %}
@@ -71,48 +71,7 @@
 
   {% block content %}{% endblock %}
 
+  <!-- ✅ FAQ toggle script 분리 없이 이곳에 유지 -->
   <script src="{% static 'js/faq_toggle.js' %}"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const alertBox = document.getElementById('floating-alert');
-      if (alertBox && alertBox.textContent.trim() !== '') {
-        alertBox.style.display = 'block';
-        setTimeout(() => {
-          alertBox.style.display = 'none';
-        }, 2000);
-      }
-
-      // ✅ FAQ 카드 애니메이션 복구 스크립트
-      const toggleBtns = document.querySelectorAll('.faq-summary-js');
-      toggleBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const parentCard = btn.closest('.faq-card-js');
-          const answer = parentCard.querySelector('.faq-answer-js');
-          const isOpen = answer.getAttribute('data-open') === 'true';
-
-          if (!isOpen) {
-            answer.style.display = 'block';
-            const height = answer.scrollHeight + 'px';
-            answer.style.height = '0px';
-            requestAnimationFrame(() => {
-              answer.style.transition = 'height 0.3s ease';
-              answer.style.height = height;
-              answer.setAttribute('data-open', 'true');
-            });
-          } else {
-            answer.style.height = answer.scrollHeight + 'px';
-            requestAnimationFrame(() => {
-              answer.style.transition = 'height 0.3s ease';
-              answer.style.height = '0px';
-            });
-            setTimeout(() => {
-              answer.style.display = 'none';
-              answer.setAttribute('data-open', 'false');
-            }, 300);
-          }
-        });
-      });
-    });
-  </script>
 </body>
 </html>
