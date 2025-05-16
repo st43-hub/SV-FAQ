@@ -17,22 +17,34 @@ window.addEventListener("DOMContentLoaded", () => {
           const otherAnswer = c.querySelector(".faq-answer-js");
           const otherIcon = c.querySelector(".faq-toggle-icon");
           if (otherAnswer.getAttribute("data-open") === "true") {
-            otherAnswer.style.maxHeight = "0px";
-            otherAnswer.setAttribute("data-open", "false");
-            if (otherIcon) otherIcon.textContent = "▶";
-            c.classList.remove("open");
+            otherAnswer.style.maxHeight = otherAnswer.scrollHeight + "px";
+            requestAnimationFrame(() => {
+              otherAnswer.style.transition = "max-height 0.4s ease";
+              otherAnswer.style.maxHeight = "0px";
+              otherAnswer.setAttribute("data-open", "false");
+              if (otherIcon) otherIcon.textContent = "▶";
+              c.classList.remove("open");
+            });
           }
         }
       });
 
       // 현재 카드 토글
       if (isOpen) {
-        answer.style.maxHeight = "0px";
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        requestAnimationFrame(() => {
+          answer.style.transition = "max-height 0.4s ease";
+          answer.style.maxHeight = "0px";
+        });
         answer.setAttribute("data-open", "false");
         if (icon) icon.textContent = "▶";
         card.classList.remove("open");
       } else {
-        answer.style.maxHeight = answer.scrollHeight + "px";
+        answer.style.maxHeight = "0px";
+        requestAnimationFrame(() => {
+          answer.style.transition = "max-height 0.4s ease";
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        });
         answer.setAttribute("data-open", "true");
         if (icon) icon.textContent = "▼";
         card.classList.add("open");
