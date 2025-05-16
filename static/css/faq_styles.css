@@ -1,17 +1,17 @@
-/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션 전용 CSS */
+/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션 전용 CSS - 최종 시각 리디자인 반영 */
 
 /* 전체 배경 및 텍스트 컬러 */
 body {
   background-color: #1c1d22;
-  color: #e4e4e7;
+  color: #d4d4d8;
   font-family: "Segoe UI", sans-serif;
 }
 
 /* 카드 기본 */
 .faq-card-js {
-  background: #1f1f23;
-  border: 1px solid #2f2f35;
-  border-radius: 8px;
+  background: #1d1f23;
+  border: 1px solid #2c2d31;
+  border-radius: 6px;
   margin: 12px 0;
   box-shadow: none;
   transition: all 0.3s ease;
@@ -19,9 +19,9 @@ body {
 }
 
 .faq-card-js.open {
-  background: #27272a;
-  border-color: #3f3f46;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  background: #232429;
+  border-color: #3a3a3f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .faq-summary-js {
@@ -31,14 +31,14 @@ body {
   padding: 8px 12px;
   font-size: 1rem;
   font-weight: 600;
-  color: #f4f4f5;
+  color: #f3f4f6;
   cursor: pointer;
-  border-bottom: 1px dashed #3f3f46;
+  border-bottom: 1px dashed #3a3a3f;
 }
 
 .faq-toggle-icon {
   transition: transform 0.2s ease;
-  color: #a78bfa;
+  color: #a1a1aa;
 }
 
 .faq-title {
@@ -71,41 +71,42 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 12px 0;
-  background: #25262b;
-  border: 1px solid #3f3f46;
+  background: #1f1f23;
+  border: 1px solid #2c2d31;
 }
 
 .faq-answer-js th,
 .faq-answer-js td {
   padding: 8px 12px;
-  border: 1px solid #3f3f46;
-  color: #f4f4f5;
+  border: 1px solid #2c2d31;
+  color: #e6e6e6;
 }
 
 .faq-answer-js th {
-  background-color: #333438;
+  background-color: #2a2b2f;
 }
 
 /* 버튼 */
 .btn-light {
-  background-color: #2f2f35;
+  background-color: #2a2a2e;
   color: #e4e4e7;
-  border: 1px solid #42434a;
+  border: 1px solid #404045;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 0.9rem;
 }
 
 .btn-light:hover {
-  background-color: #3a3b40;
+  background-color: #34343a;
 }
 
 .btn-primary {
-  background-color: #8b5cf6;
-  color: white;
+  background-color: #34343a;
+  color: #e5e7eb;
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
+  font-weight: 500;
 }
 
 .faq-meta {
