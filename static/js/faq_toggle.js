@@ -1,4 +1,4 @@
-// 📜 FAQ 카드 아코디언 토글 스크립트 - scrollHeight 기반 애니메이션 복구
+// 📜 FAQ 카드 아코디언 토글 스크립트 (Labelit 스타일 리디자인 반영)
 
 window.addEventListener("DOMContentLoaded", () => {
   const summaries = document.querySelectorAll(".faq-summary-js");
@@ -10,51 +10,66 @@ window.addEventListener("DOMContentLoaded", () => {
       const icon = card.querySelector(".faq-toggle-icon");
       const isOpen = answer.getAttribute("data-open") === "true";
 
-      // 다른 카드 닫기
+      // 모든 카드 닫기
       document.querySelectorAll(".faq-card-js").forEach((c) => {
         if (c !== card) {
-          const otherAnswer = c.querySelector(".faq-answer-js");
-          const otherIcon = c.querySelector(".faq-toggle-icon");
-          if (otherAnswer.getAttribute("data-open") === "true") {
-            otherAnswer.style.height = otherAnswer.scrollHeight + "px";
-            requestAnimationFrame(() => {
-              otherAnswer.style.transition = "height 0.3s ease";
-              otherAnswer.style.height = "0px";
-              otherAnswer.setAttribute("data-open", "false");
-              setTimeout(() => {
-                otherAnswer.style.display = "none";
-              }, 300);
-            });
-            if (otherIcon) otherIcon.textContent = "▶";
+          const a = c.querySelector(".faq-answer-js");
+          const i = c.querySelector(".faq-toggle-icon");
+          a.style.transition = "opacity 0.15s ease, height 0.25s ease";
+          a.style.opacity = "0";
+          requestAnimationFrame(() => {
+            a.style.height = "0px";
+            a.setAttribute("data-open", "false");
+            if (i) i.textContent = "▶";
             c.classList.remove("open");
-          }
+            c.style.backgroundColor = "";
+            c.style.boxShadow = "";
+            c.style.borderColor = "";
+          });
         }
       });
 
-      // 현재 카드 토글
-      if (isOpen) {
-        answer.style.height = answer.scrollHeight + "px";
-        requestAnimationFrame(() => {
-          answer.style.transition = "height 0.3s ease";
-          answer.style.height = "0px";
-        });
-        setTimeout(() => {
-          answer.style.display = "none";
-          answer.setAttribute("data-open", "false");
-        }, 300);
-        if (icon) icon.textContent = "▶";
-        card.classList.remove("open");
-      } else {
-        answer.style.display = "block";
-        const height = answer.scrollHeight + "px";
+      if (!isOpen) {
+        // 펼치기 효과 적용
         answer.style.height = "0px";
+        answer.style.opacity = "0";
         requestAnimationFrame(() => {
-          answer.style.transition = "height 0.3s ease";
-          answer.style.height = height;
-          answer.setAttribute("data-open", "true");
+          answer.style.transition = "opacity 0.25s ease, height 0.35s ease";
+          answer.style.height = answer.scrollHeight + "px";
+          answer.style.opacity = "1";
         });
+
+        answer.setAttribute("data-open", "true");
         if (icon) icon.textContent = "▼";
         card.classList.add("open");
+
+        // 열린 카드 스타일
+        card.style.backgroundColor = "#27272a";
+        card.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.6)";
+        card.style.borderColor = "#3f3f46";
+
+        answer.addEventListener("transitionend", function handler(e) {
+          if (e.propertyName === "height" && answer.getAttribute("data-open") === "true") {
+            answer.style.height = "auto";
+          }
+          answer.removeEventListener("transitionend", handler);
+        });
+      } else {
+        // 접기 효과 적용
+        answer.style.transition = "opacity 0.15s ease, height 0.25s ease";
+        answer.style.opacity = "0";
+        requestAnimationFrame(() => {
+          answer.style.height = "0px";
+        });
+
+        answer.setAttribute("data-open", "false");
+        if (icon) icon.textContent = "▶";
+        card.classList.remove("open");
+
+        // 닫힌 카드 스타일 초기화
+        card.style.backgroundColor = "";
+        card.style.boxShadow = "";
+        card.style.borderColor = "";
       }
     });
   });

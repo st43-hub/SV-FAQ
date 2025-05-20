@@ -46,18 +46,16 @@ body {
 }
 
 .faq-answer-js {
-  height: 0;
+  max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: height 0.3s ease, opacity 0.3s ease;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
   padding-top: 8px;
   color: #d4d4d8;
 }
 
 .faq-answer-js[data-open="true"] {
-  height: auto;
   opacity: 1;
-  overflow: visible;
 }
 
 .faq-answer-js img {
