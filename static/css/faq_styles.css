@@ -1,4 +1,4 @@
-/* 🎨 FAQ 카드, 버튼, 애니메이션 전용 CSS - Labelit 다크테마 기반 리디자인 */
+/* 🎨 FAQ 카드 애니메이션 및 다크 스타일 - scrollHeight 기반 토글 대응 */
 
 body {
   background-color: #1c1d22;
@@ -11,15 +11,8 @@ body {
   border: 1px solid #2c2d31;
   border-radius: 6px;
   margin: 12px 0;
-  box-shadow: none;
-  transition: all 0.3s ease;
   padding: 16px;
-}
-
-.faq-card-js.open {
-  background: #232429;
-  border-color: #3a3a3f;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
 .faq-summary-js {
@@ -39,17 +32,11 @@ body {
   color: #d4d4d8;
 }
 
-.faq-title {
-  flex: 1;
-  text-align: left;
-  line-height: 1.4;
-}
-
 .faq-answer-js {
-  max-height: 0;
+  height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease, opacity 0.3s ease;
+  transition: height 0.3s ease, opacity 0.3s ease;
   padding-top: 8px;
   color: #d4d4d8;
 }
@@ -84,15 +71,13 @@ body {
   background-color: #2a2b2f;
 }
 
-.btn-light,
-.btn-light:focus {
+.btn-light {
   background-color: #2a2a2e;
   color: #ffffff;
   border: 1px solid #404045;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 0.9rem;
-  box-shadow: none;
 }
 
 .btn-light:hover {
@@ -145,53 +130,4 @@ select:focus,
 input[type="text"]:focus {
   border-color: #999 !important;
   box-shadow: 0 0 0 1px #666;
-}
-
-button.active,
-.btn-light.active {
-  background-color: #ffffff;
-  color: #1c1d22;
-  font-weight: bold;
-  border: 1px solid #ffffff;
-}
-
-form.flex.flex-wrap {
-  gap: 12px;
-}
-
-select {
-  background-image: none;
-}
-
-select,
-input[type="text"],
-button {
-  border-color: #404045 !important;
-}
-
-@media (max-width: 768px) {
-  .faq-card-js {
-    padding: 12px;
-  }
-
-  .faq-summary-js {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .faq-actions {
-    padding-right: 0;
-    margin-top: 6px;
-  }
-
-  form,
-  .faq-filter-form {
-    flex-direction: column;
-  }
-
-  form > div,
-  .faq-filter-form > div {
-    width: 100%;
-  }
 }
