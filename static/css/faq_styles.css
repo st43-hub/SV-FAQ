@@ -38,6 +38,7 @@ body {
   transition: height 0.3s ease, opacity 0.3s ease;
   padding-top: 8px;
   color: #d4d4d8;
+  will-change: height, opacity;
 }
 
 .faq-answer-js[data-open="true"] {
@@ -131,8 +132,54 @@ input[type="text"]:focus {
   box-shadow: 0 0 0 1px #666;
 }
 
-/* scrollHeight 기반 토글을 위한 명확한 height transition 스타일 */
-.faq-answer-js {
-  will-change: height, opacity;
-  transition: height 0.3s ease, opacity 0.3s ease;
+/* ✅ 필터 버튼 공통 스타일 */
+.btn-filter {
+  background-color: #2a2a2e;
+  color: #ffffff;
+  border: 1px solid #404045;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.btn-filter.active {
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+}
+
+/* ✅ 편집 페이지 스타일 (edit_faq 등 공통 적용) */
+.faq-edit-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #1c1d22;
+  padding: 3rem 1rem;
+}
+
+.faq-edit-box {
+  max-width: 640px;
+  width: 100%;
+  background-color: #1f1f23;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.faq-edit-title {
+  text-align: center;
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+.faq-form label {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.faq-form button {
+  margin-top: 1rem;
 }

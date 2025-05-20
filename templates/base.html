@@ -31,13 +31,6 @@
       z-index: 9999;
       display: none;
     }
-    /* 추가된 스타일: 선택된 필터 버튼 배경 및 텍스트 컬러 변경 */
-    .btn-filter {
-      @apply bg-gray-700 text-white border border-gray-500 px-4 py-2 rounded;
-    }
-    .btn-filter.active {
-      @apply bg-white text-black font-bold;
-    }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-300 min-h-screen">
@@ -69,7 +62,7 @@
         <a href="/add/" class="text-sm text-gray-300 hover:text-white">➕ FAQ 추가</a>
         <a href="/stats/" class="text-sm text-gray-300 hover:text-white">📊 통계</a>
         <a href="/export/" class="text-sm text-gray-300 hover:text-white">📄 내보내기</a>
-        <a href="/import/" class="text-sm text-gray-300 hover:text-white">📅 불러오기</a>
+        <a href="/import/" class="text-sm text-gray-300 hover:text-white">🗕️ 불러오기</a>
       {% else %}
         <a href="/accounts/login/" class="text-sm text-gray-300 hover:underline">로그인</a>
       {% endif %}
