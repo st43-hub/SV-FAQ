@@ -1,13 +1,11 @@
-/* 🎨 Labelit 스타일 기반 FAQ 카드, 버튼, 애니메이션, 필터, 입력창 UI 전체 리디자인 + 브랜드 보라색 제거 → 흰색 중심 테마 */
+/* 🎨 FAQ 카드, 버튼, 애니메이션 전용 CSS - Labelit 다크테마 기반 리디자인 */
 
-/* 전체 배경 및 텍스트 컬러 */
 body {
   background-color: #1c1d22;
   color: #d4d4d8;
   font-family: "Segoe UI", sans-serif;
 }
 
-/* 카드 기본 */
 .faq-card-js {
   background: #1d1f23;
   border: 1px solid #2c2d31;
@@ -49,15 +47,17 @@ body {
 
 .faq-answer-js {
   max-height: 0;
+  height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
+  transition: opacity 0.15s ease, height 0.25s ease;
   padding-top: 8px;
   color: #d4d4d8;
 }
 
 .faq-answer-js[data-open="true"] {
   opacity: 1;
+  height: auto;
 }
 
 .faq-answer-js img {
@@ -86,7 +86,6 @@ body {
   background-color: #2a2b2f;
 }
 
-/* 버튼 */
 .btn-light,
 .btn-light:focus {
   background-color: #2a2a2e;
@@ -129,7 +128,6 @@ button[type="submit"]:hover {
   margin: 40px 0;
 }
 
-/* 🔍 필터/검색 영역 스타일 */
 input[type="text"],
 select {
   background-color: #1f1f23;
@@ -151,7 +149,6 @@ input[type="text"]:focus {
   box-shadow: 0 0 0 1px #666;
 }
 
-/* 활성화된 탭 버튼 */
 button.active,
 .btn-light.active {
   background-color: #ffffff;
@@ -160,19 +157,43 @@ button.active,
   border: 1px solid #ffffff;
 }
 
-/* 폼 영역 전체 간격 통일 */
 form.flex.flex-wrap {
   gap: 12px;
 }
 
-/* 드롭다운 화살표 제거 후 커스텀 가능 */
 select {
   background-image: none;
 }
 
-/* 보라색 테두리 제거 강제 적용 */
 select,
 input[type="text"],
 button {
   border-color: #404045 !important;
+}
+
+@media (max-width: 768px) {
+  .faq-card-js {
+    padding: 12px;
+  }
+
+  .faq-summary-js {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .faq-actions {
+    padding-right: 0;
+    margin-top: 6px;
+  }
+
+  form,
+  .faq-filter-form {
+    flex-direction: column;
+  }
+
+  form > div,
+  .faq-filter-form > div {
+    width: 100%;
+  }
 }
