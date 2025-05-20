@@ -1,4 +1,4 @@
-/* 🎨 FAQ 카드 애니메이션 및 다크 스타일 - scrollHeight 기반 토글 대응 */
+/* 🎨 FAQ 스타일 시트 - scrollHeight 애니메이션 대응 및 다크 테마 */
 
 body {
   background-color: #1c1d22;
@@ -10,7 +10,6 @@ body {
   background: #1d1f23;
   border: 1px solid #2c2d31;
   border-radius: 6px;
-  margin: 12px 0;
   padding: 16px;
   transition: all 0.3s ease;
 }
@@ -130,4 +129,10 @@ select:focus,
 input[type="text"]:focus {
   border-color: #999 !important;
   box-shadow: 0 0 0 1px #666;
+}
+
+/* scrollHeight 기반 토글을 위한 명확한 height transition 스타일 */
+.faq-answer-js {
+  will-change: height, opacity;
+  transition: height 0.3s ease, opacity 0.3s ease;
 }

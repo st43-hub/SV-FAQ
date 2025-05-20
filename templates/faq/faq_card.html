@@ -1,4 +1,4 @@
-{# 📦 FAQ 카드 컴포넌트 - toggle 연결 + 스타일 정리 + 애니메이션 기능 복구 #}
+{# 📦 FAQ 카드 컴포넌트 - toggle 연결 + 스타일 정리 + scrollHeight 기반 애니메이션 최적화 #}
 <div class="faq-card-js border rounded-md mb-6 text-white transition-all duration-300 ease-in-out">
   <div class="faq-summary-js cursor-pointer select-none">
     <div class="flex flex-wrap justify-between items-center">
@@ -33,7 +33,8 @@
   </div>
 
   <!-- 펼쳐지는 답변 영역 -->
-  <div class="faq-answer-js mt-2 p-2 overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out" data-open="false">
+  <div class="faq-answer-js mt-2 p-2 overflow-hidden opacity-0 transition-[height,opacity] duration-300 ease-in-out"
+       style="height: 0;" data-open="false">
     <div class="text-gray-200">
       <p class="leading-relaxed">{{ faq.answer|safe }}</p>
       {% if faq.image %}
