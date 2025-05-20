@@ -11,10 +11,10 @@
     .logout-icon {
       font-size: 1.2rem;
       padding: 6px 10px;
-      background-color: #ede9fe;
+      background-color: #e5e7eb;
       border-radius: 50%;
       display: inline-block;
-      border: 1px solid #d8b4fe;
+      border: 1px solid #9ca3af;
       text-decoration: none;
     }
     #floating-alert {
@@ -25,7 +25,7 @@
       background-color: #eef;
       color: #333;
       padding: 10px 20px;
-      border-left: 4px solid #8A2BE2;
+      border-left: 4px solid #666;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       z-index: 9999;
@@ -52,7 +52,7 @@
       {% if request.user.is_authenticated %}
         <div class="mt-2 sm:mt-0 text-sm text-gray-300 flex items-center gap-3">
           👋 {{ request.user.username }}님
-          <a href="/accounts/logout/" class="text-purple-400 hover:underline">🚪 로그아웃</a>
+          <a href="/accounts/logout/" class="text-gray-300 hover:underline">🚪 로그아웃</a>
         </div>
       {% endif %}
     </div>
@@ -64,14 +64,13 @@
         <a href="/export/" class="text-sm text-gray-300 hover:text-white">📄 내보내기</a>
         <a href="/import/" class="text-sm text-gray-300 hover:text-white">📅 불러오기</a>
       {% else %}
-        <a href="/accounts/login/" class="text-sm text-purple-400 hover:underline">로그인</a>
+        <a href="/accounts/login/" class="text-sm text-gray-300 hover:underline">로그인</a>
       {% endif %}
     </nav>
   </header>
 
   {% block content %}{% endblock %}
 
-  <!-- ✅ FAQ toggle script 분리 없이 이곳에 유지 -->
   <script src="{% static 'js/faq_toggle.js' %}"></script>
 </body>
 </html>

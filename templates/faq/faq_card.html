@@ -1,31 +1,31 @@
-{# 📦 FAQ 카드 컴포넌트 - toggle 연결 + 스타일 정리 + scrollHeight 기반 애니메이션 최적화 #}
-<div class="faq-card-js border rounded-md mb-6 text-white transition-all duration-300 ease-in-out">
-  <div class="faq-summary-js cursor-pointer select-none">
-    <div class="flex flex-wrap justify-between items-center">
+{% load static %}
+
+{# 📦 FAQ 카드 컴포넌트 - 최적화 및 scrollHeight 기반 애니메이션 리팩터링 완료 #}
+<div class="faq-card-js bg-gray-800 rounded-md border border-gray-600 text-white mb-6 transition-colors">
+  <div class="faq-summary-js cursor-pointer select-none px-4 py-3 border-b border-gray-600">
+    <div class="flex justify-between items-start">
+      <!-- 좌측: 카테고리/구역 + 질문 -->
       <div class="flex flex-col gap-1">
-        <!-- 카테고리와 구역 정보 -->
         <div class="flex gap-3 text-sm text-gray-400">
           <span>📂 {{ faq.category }}</span>
           <span>📍 {{ faq.area }}</span>
         </div>
-        <!-- 질문 -->
         <div class="flex items-center gap-2">
-          <span class="faq-toggle-icon transition-transform duration-200">▶</span>
-          <h3 class="text-lg font-bold text-white break-words">Q. {{ faq.question }}</h3>
+          <span class="faq-toggle-icon text-white">▶</span>
+          <h3 class="text-base font-semibold">Q. {{ faq.question }}</h3>
         </div>
       </div>
 
-      <!-- 즐겨찾기 + 수정/삭제 버튼 -->
-      <div class="flex items-center gap-3 mt-4 sm:mt-0">
-        <span title="즐겨찾기" class="text-lg cursor-default text-yellow-400 ml-2">
+      <!-- 우측: 즐겨찾기 + 수정/삭제 버튼 -->
+      <div class="flex items-center gap-2">
+        <span title="즐겨찾기" class="text-yellow-400 text-lg">
           {% if faq.is_favorite %}★{% else %}☆{% endif %}
         </span>
         {% if user.is_authenticated %}
-        <a href="{% url 'faq:edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정"
-           class="text-gray-400 hover:text-white text-lg ml-1">✏️</a>
+        <a href="{% url 'faq:edit_faq' faq.id %}?{{ request.GET.urlencode }}" title="수정" class="text-gray-300 hover:text-white text-base">✏️</a>
         <form method="post" action="{% url 'faq:delete_faq' faq.id %}?{{ request.GET.urlencode }}" class="inline">
           {% csrf_token %}
-          <button type="submit" title="삭제" class="text-red-400 hover:text-red-500 text-lg ml-1">🗑️</button>
+          <button type="submit" title="삭제" class="text-red-500 hover:text-red-600 text-base">🗑️</button>
         </form>
         {% endif %}
       </div>
@@ -33,18 +33,18 @@
   </div>
 
   <!-- 펼쳐지는 답변 영역 -->
-  <div class="faq-answer-js mt-2 p-2 overflow-hidden opacity-0 transition-[height,opacity] duration-300 ease-in-out"
-       style="height: 0;" data-open="false">
-    <div class="text-gray-200">
+  <div class="faq-answer-js overflow-hidden opacity-0 px-4 py-3 text-sm"
+       style="height: 0; transition: height 0.3s ease, opacity 0.3s ease;" data-open="false">
+    <div>
       <p class="leading-relaxed">{{ faq.answer|safe }}</p>
       {% if faq.image %}
       <div class="mt-4">
-        <img src="{{ faq.image.url }}" alt="FAQ 이미지" class="max-w-full rounded-lg">
+        <img src="{{ faq.image.url }}" alt="FAQ 이미지" class="max-w-full rounded">
       </div>
       {% endif %}
 
       <!-- 생성일자, 조회수 -->
-      <div class="mt-6 flex flex-wrap gap-3 text-sm text-gray-400">
+      <div class="mt-4 flex flex-wrap gap-4 text-xs text-gray-400">
         <span>🕒 {{ faq.created_at|date:"Y-m-d" }}</span>
         <span>👁️ {{ faq.view_count }}회</span>
       </div>
