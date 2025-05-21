@@ -1,4 +1,4 @@
-// 📜 FAQ 카드 아코디언 토글 스크립트 (scrollHeight 기반 애니메이션 완전 복구)
+// 📜 FAQ 카드 아코디언 토글 스크립트 (scrollHeight 기반 애니메이션 + 아이콘 회전 개선)
 
 window.addEventListener("DOMContentLoaded", () => {
   const summaries = document.querySelectorAll(".faq-summary-js");
@@ -22,8 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
             a.style.opacity = "0";
             a.setAttribute("data-open", "false");
           });
-          c.classList.remove("open");
-          if (i) i.textContent = "▶";
+          c.classList.remove("open"); // 회전 제거
         }
       });
 
@@ -35,8 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
         answer.style.height = answer.scrollHeight + "px";
         answer.style.opacity = "1";
 
-        icon.textContent = "▼";
-        card.classList.add("open");
+        card.classList.add("open"); // 회전 적용
 
         answer.addEventListener("transitionend", function handler(e) {
           if (e.propertyName === "height") {

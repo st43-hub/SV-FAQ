@@ -27,8 +27,13 @@ body {
 }
 
 .faq-toggle-icon {
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  display: inline-block;
   color: #d4d4d8;
+}
+.faq-card-js.open .faq-toggle-icon {
+  transform: rotate(90deg);
 }
 
 .faq-answer-js {
